@@ -1,6 +1,6 @@
 {
   "version": "6.2.3",
   "downloadUrl": "https://github.com/Vomitted/OmniControl/releases/download/v6.2.3/OmniControlSuite.exe",
-  "releaseNotes": "OmniControl Suite v6.2.3 Hardware Permissions & Settings Sync Engine:\nâ€¢ Hardware Permissions Sync: Fixed bidirectional sync lock between in-app GPU tweaks and MSI Afterburner passthrough mode.\nâ€¢ Universal Event Guarding: Sealed all 24 control change handlers with recursive sync locks, preventing default states from overwriting user preferences.\nâ€¢ Display Output Link Integrity: 100% eliminated PnP device unbinding, keeping HDMI & USB-C DP outputs connected continuously.\nâ€¢ Dual-Layer Storage Architecture: Windows Registry + %LocalAppData% JSON config persistence across updates.",
+  "releaseNotes": "Dell & Alienware AWCC 100% Max Turbo fan control, Dual TaskScheduler & Registry autostart, Real-time Settings sync, Zero-flicker fullscreen",
   "publishDate": "2026-08-19"
 }
