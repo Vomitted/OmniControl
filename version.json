@@ -1,6 +1,6 @@
 {
   "version": "6.0.0",
   "downloadUrl": "https://github.com/Vomitted/OmniControl/releases/download/v6.0.0/OmniControlSuite.exe",
-  "releaseNotes": "Dell & Alienware AWCC 100% Max Turbo fan control, Dual TaskScheduler & Registry autostart, Real-time Settings sync, Zero-flicker fullscreen",
+  "releaseNotes": "OmniNeural v2 (8-Agent Mesh), 6-Channel Telemetry History, Battery Health ACPI Diagnostics, Game Mode Mega-Toggle, Global Hotkey Ctrl+Alt+O, VoltMaster 14-step EPP, ThermalShield Emergency Override, PowerNap Idle Quiesce",
   "publishDate": "2026-08-19"
 }
