@@ -1,6 +1,6 @@
 {
-  "version": "6.0.0",
-  "downloadUrl": "https://github.com/Vomitted/OmniControl/releases/download/v6.0.0/OmniControlSuite.exe",
-  "releaseNotes": "Dell & Alienware AWCC 100% Max Turbo fan control, Dual TaskScheduler & Registry autostart, Real-time Settings sync, Zero-flicker fullscreen",
+  "version": "6.0.1",
+  "downloadUrl": "https://github.com/Vomitted/OmniControl/releases/download/v6.0.1/OmniControlSuite.exe",
+  "releaseNotes": "Hotfix v6.0.1: Fixed EC thermal loop & CPU idle temperatures, fixed checkbox ampersand formatting, fixed multi-monitor external display waking, and resolved telemetry sparkline graph overlap.",
   "publishDate": "2026-08-19"
 }
