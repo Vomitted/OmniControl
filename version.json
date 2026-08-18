@@ -1,6 +1,6 @@
 {
   "version": "6.2.0",
   "downloadUrl": "https://github.com/Vomitted/OmniControl/releases/download/v6.2.0/OmniControlSuite.exe",
-  "releaseNotes": "OmniControl Suite v6.2.0 Major Update:\nâ€¢ UI/Layout: Locked horizontal scrollbars permanently across all 9 views; 100% eliminated sideways scroll jitter.\nâ€¢ Symmetrical HUD Deck: 5 balanced gauges with corrected Battery ColorMode (green on full charge, red on low).\nâ€¢ High-Precision Multimedia Timer: 1.0ms timer resolution (timeBeginPeriod) for ultra-consistent gaming frametimes.\nâ€¢ In-App Patch Notes Archive: Dedicated interactive version history dialog in Settings.\nâ€¢ Hardware Sensor Matrix: ACPI topology, CPU cache, VRAM, and real-time battery wear inspector.\nâ€¢ OmniNeural v3 AI Engine: 350+ game signatures & 64-sample AeroCore PID thermal prediction.\nâ€¢ Zero-CPU WMI Architecture: 3-second hardware rate-limiter for low idle temperatures.\nâ€¢ Multi-Monitor Protection: Hard guards preventing dGPU power-gating on external displays.",
+  "releaseNotes": "Dell & Alienware AWCC 100% Max Turbo fan control, Dual TaskScheduler & Registry autostart, Real-time Settings sync, Zero-flicker fullscreen",
   "publishDate": "2026-08-19"
 }
