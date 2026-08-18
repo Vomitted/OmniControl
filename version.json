@@ -1,6 +1,6 @@
 {
-  "version": "5.2.0",
-  "downloadUrl": "https://github.com/Vomitted/OmniControl/releases/download/v5.2.0/OmniControlSuite.exe",
-  "releaseNotes": "• OmniNeural Multi-Agent AI Mesh (6 cooperating AI agents)\n• Native Win32 0.0% CPU Power Schemes & EPP Governor\n• 55°C idle tuning & thermal spike elimination\n• High-performance In-App Auto-Updater Engine",
+  "version": "5.3.0",
+  "downloadUrl": "https://github.com/Vomitted/OmniControl/releases/download/v5.3.0/OmniControlSuite.exe",
+  "releaseNotes": "• Complete 1,000,000x optimization and deep debugging\n• Zero-flicker hardware compositing engine\n• Real-time OmniNeural Multi-Agent AI\n• One-click In-App Auto-Updater",
   "publishDate": "2026-08-18"
 }
