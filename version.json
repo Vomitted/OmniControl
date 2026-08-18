@@ -1,6 +1,6 @@
 {
-  "version": "6.2.1",
-  "downloadUrl": "https://github.com/Vomitted/OmniControl/releases/download/v6.2.1/OmniControlSuite.exe",
-  "releaseNotes": "Dell & Alienware AWCC 100% Max Turbo fan control, Dual TaskScheduler & Registry autostart, Real-time Settings sync, Zero-flicker fullscreen",
+  "version": "6.2.2",
+  "downloadUrl": "https://github.com/Vomitted/OmniControl/releases/download/v6.2.2/OmniControlSuite.exe",
+  "releaseNotes": "OmniControl Suite v6.2.2 External Monitor & Display Hotfix:\nâ€¢ External Monitor Fix: Removed destructive kernel PnP unbinding and ensured discrete GPU & HDMI/USB-C display PHYs remain 100% active and connected during lock/idle.\nâ€¢ Optimus 0.0W D3Cold: GPU power-gating now uses native NVIDIA driver power-states without disabling display adapters in Device Manager.\nâ€¢ Auto Device Re-enabler: Automatically wakes and verifies all display adapters on startup.\nâ€¢ Dual-Layer Settings Sync: Persistent registry and local JSON config preservation across all versions.",
   "publishDate": "2026-08-19"
 }
