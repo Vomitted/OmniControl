@@ -1,6 +1,6 @@
 {
-  "version": "6.2.0",
-  "downloadUrl": "https://github.com/Vomitted/OmniControl/releases/download/v6.2.0/OmniControlSuite.exe",
-  "releaseNotes": "Dell & Alienware AWCC 100% Max Turbo fan control, Dual TaskScheduler & Registry autostart, Real-time Settings sync, Zero-flicker fullscreen",
+  "version": "6.2.1",
+  "downloadUrl": "https://github.com/Vomitted/OmniControl/releases/download/v6.2.1/OmniControlSuite.exe",
+  "releaseNotes": "OmniControl Suite v6.2.1 Settings Persistence Update:\nâ€¢ Settings Sync & Zero-Reset Engine: Implemented dual-layer persistence (Windows Registry + %LocalAppData% JSON config).\nâ€¢ Update Resilience: Blocked UI instantiation defaults from overwriting user preferences on launch.\nâ€¢ Horizontal Scroll Lock: Fixed Fans & Power and all other tabs from scrolling horizontally.\nâ€¢ High-Precision Multimedia Timer: 1.0ms timer resolution for ultra-low latency gaming.\nâ€¢ In-App Patch Notes Archive & Hardware Diagnostic Matrix in Settings.",
   "publishDate": "2026-08-19"
 }
