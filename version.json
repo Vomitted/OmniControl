@@ -1,6 +1,6 @@
 {
   "version": "6.3.0",
   "downloadUrl": "https://github.com/Vomitted/OmniControl/releases/download/v6.3.0/OmniControlSuite.exe",
-  "releaseNotes": "OmniControl Suite v6.3.0 OptiRouter AI & DirectX GPU Director Release:\nâ€¢ OptiRouter AI (Agent 9): Autonomous per-application DirectX GPU director routing recognized games to NVIDIA RTX 4060 dGPU and everyday apps/browsers to AMD Radeon iGPU.\nâ€¢ Interactive GPU App Routing Manager: Interactive table in GPU & Display to customize DirectX GPU preferences for any application or .exe file with 1-click.\nâ€¢ One-Click Auto-Optimizer: Automatically scans running and installed programs and applies optimal GPU power targets.\nâ€¢ Real-Time Background Routing: Continuously monitors foreground processes and assigns optimal GPU profiles without user intervention.\nâ€¢ Hardware Permissions Sync: Fully synchronized permission locks and settings persistence.",
+  "releaseNotes": "Dell & Alienware AWCC 100% Max Turbo fan control, Dual TaskScheduler & Registry autostart, Real-time Settings sync, Zero-flicker fullscreen",
   "publishDate": "2026-08-19"
 }
