@@ -1,6 +1,6 @@
 {
   "version": "6.1.0",
   "downloadUrl": "https://github.com/Vomitted/OmniControl/releases/download/v6.1.0/OmniControlSuite.exe",
-  "releaseNotes": "OmniControl Suite v6.1.0 Master Release:\n- OmniNeural v3 Multi-Agent AI (350+ game process signatures, 64-sample AeroCore PID thermal prediction, Kalman derivative filtering)\n- 5-Gauge Dashboard: Symmetrically balanced top row with fixed Battery ColorMode (green for full charge, red for low)\n- Fixed Telemetry CSV export button layout & unobstructed canvas\n- Zero-CPU WMI architecture with throttled EC writes and low-power C-states\n- Multi-monitor external display protection on gaming laptops\n- Universal DPI scaling and full smooth scroll support across all 9 views.",
+  "releaseNotes": "Dell & Alienware AWCC 100% Max Turbo fan control, Dual TaskScheduler & Registry autostart, Real-time Settings sync, Zero-flicker fullscreen",
   "publishDate": "2026-08-19"
 }
