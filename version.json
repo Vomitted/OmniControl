@@ -1,6 +1,6 @@
 {
-    "releaseNotes":  "OmniControl Suite v7.0.0 — Grand Unified Architecture:\n- Shader Cache Policy \u0026 Preservation Engine: Added \u0027PRESERVE SHADERS\u0027 toggle to protect DX12 PSO, NVIDIA DXCache, AMD, and Unreal Engine shader pipelines during system sweeps, eliminating game pre-loading stutters.\n- Battery Health \u0026 Degradation Forensics Engine: Background 60s watt-hour depletion tracking, app energy efficiency scorecard (mW drained per active app), and one-click exportable battery forensics report.\n- Autonomous Zero-Lag Display Resync: Hooks WM_DISPLAYCHANGE (0x007E) to flush DWM frame latency and auto-lock 144Hz native refresh rate upon monitor connect/disconnect.\n- Universal Laptop Hardware Abstraction (HAL v2): Multi-vendor BIOS \u0026 WMI thermal bridge for HP, ASUS, Lenovo, Acer, Dell, and generic ACPI.\n- Restored VoltMaster CPU Controls \u0026 AeroFrame Low-Latency Governor.",
+    "releaseNotes":  "OmniControl Suite v7.0.1 — OmniFrameGen 2X FPS Doubling Hub:\n- OmniFrameGen 2X/3X Frame Multiplier Hub: Dedicated control center in GPU Profiles supporting NVIDIA Optical Flow (DLSS 3), AMD FSR 3, Lossless Scaling (LSFG), and AeroPacing 72-\u003e144Hz smooth scanout.\n- NVIDIA Reflex Ultra Low Latency Integration: System profile scheduler tuning and 1.0ms MMIO precision timer to eliminate input lag.\n- In-Game Overlay FrameGen Indicator: Live tracking of 2X FrameGen active status and display refresh rate.",
     "publishDate":  "2026-08-19",
-    "version":  "7.0.0",
-    "downloadUrl":  "https://github.com/Vomitted/OmniControl/releases/download/v7.0.0/OmniControlSuite.exe"
+    "version":  "7.0.1",
+    "downloadUrl":  "https://github.com/Vomitted/OmniControl/releases/download/v7.0.1/OmniControlSuite.exe"
 }
