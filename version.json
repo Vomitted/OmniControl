@@ -1,6 +1,6 @@
 {
-    "releaseNotes":  "OmniControl Suite v7.0.4 — AI Neural FrameGen \u0026 Live Indicator Hub:\n- AI Neural Motion Flow: Dynamic frametime predictor \u0026 swapchain queue governor to eliminate micro-stutters and input lag.\n- Live Status Badge: Dynamic indicator (🟢 2X AI FRAMEGEN ACTIVE (144Hz · 0.8ms ZERO-LAG)) when FrameGen is on.\n- Perfect Layout: Fully resolved GPU Profiles card overlap with clean vertical stacking and smooth scrolling.\n- Direct GitHub API Update Engine: Real-time update checks without CDN caching.",
+    "releaseNotes":  "OmniControl Suite v7.0.5 — Anti-Cheat Guardian \u0026 EA Javelin Fix:\n- AntiCheatGuardian Engine: Full zero-conflict compatibility layer for EA Javelin (Battlefield / FC), Easy Anti-Cheat (EAC), BattlEye, Riot Vanguard, and Ricochet.\n- Zero Process-Interference Mode: Completely prevents handle querying, thread priority boosts, and process modifications on anti-cheat services so game launches never stall.\n- Direct3D Registry Sanitation: Cleaned Direct3D registry overrides to ensure 100% clean anti-cheat initialization.\n- AI Neural FrameGen \u0026 Live Indicator polish.",
     "publishDate":  "2026-08-20",
-    "version":  "7.0.4",
-    "downloadUrl":  "https://github.com/Vomitted/OmniControl/releases/download/v7.0.4/OmniControlSuite.exe"
+    "version":  "7.0.5",
+    "downloadUrl":  "https://github.com/Vomitted/OmniControl/releases/download/v7.0.5/OmniControlSuite.exe"
 }
