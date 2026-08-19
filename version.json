@@ -1,6 +1,6 @@
 {
-    "releaseNotes":  "OmniControl Suite v6.5.0 OptiRouter Deep AI Engine \u0026 Battery Health SMART ACPI Overhaul:\n- OptiRouter AI v4 Dynamic Gaming Engine: Deep binary inspection (Unreal Engine 4/5, Unity, Source, RE Engine, CryEngine, DLSS, Vulkan, DirectX 12, EasyAntiCheat) dynamically routes games to NVIDIA RTX 4060 dGPU and productivity/browsers to AMD Radeon iGPU.\n- Multi-Drive Library Auto-Scanner: Parses Steam libraryfolders.vdf across all drives, Epic Games, Riot, GOG, and Xbox Game Pass.\n- Autonomous Real-Time Game Mode: Elevates process priority to AboveNormal, sets VoltMaster EPP=0 for minimum frame latency, and primes cooling.\n- Battery Health Fixed: Multi-class ACPI WMI parsing (BatteryStaticData + BatteryFullChargedCapacity + BatteryCycleCount) provides instant wear level % and cycle count diagnostics.",
+    "releaseNotes":  "OmniControl Suite v6.5.1 Universal Live Feature Indications \u0026 Diagnostic Warning Badges:\n- Card Live Status Badges: Every feature card across all 9 views now displays dynamic status pills indicating ON (Emerald Green), STANDBY (Slate Gray), RESTRICTED (Amber Gold), or UNSUPPORTED (Ruby Red).\n- AI Agent Mesh Live Indicators: All 8 specialized AI agents display real-time active dots and status tags.\n- Hardware \u0026 Permission Warning Guards: Instantly warns if permissions or hardware features are disabled or locked.\n- Standalone Single-File Executable published directly to Desktop and GitHub.",
     "publishDate":  "2026-08-19",
-    "version":  "6.5.0",
-    "downloadUrl":  "https://github.com/Vomitted/OmniControl/releases/download/v6.5.0/OmniControlSuite.exe"
+    "version":  "6.5.1",
+    "downloadUrl":  "https://github.com/Vomitted/OmniControl/releases/download/v6.5.1/OmniControlSuite.exe"
 }
