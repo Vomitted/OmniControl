@@ -1,6 +1,6 @@
 {
-    "releaseNotes":  "OmniControl Suite v6.6.0 Universal Hardware Diagnostics \u0026 Solutions Release:\n- Universal Hardware Compatibility Matrix: Detects OEM platform (HP, Lenovo, ASUS, Dell, Acer, MSI, Alienware, Generic ACPI) and analyzes 12 core subsystems.\n- 4-Tier Live Status \u0026 Solutions Engine: Explains the live condition of every feature (Active, Standby, Restricted, Hardware Locked) and provides 1-Click Fixes.\n- Interactive Clickable Badges: Clicking any card\u0027s top-right status pill opens the Diagnostics Matrix pre-focused on that feature.\n- Master Auto-Optimize Button: Resolves all fixable restrictions (GPU clock tweaks, power plans, 144Hz, battery conservation) in one click.\n- Clean UI Typography \u0026 Overlap Fixes: Zero text collision and sharp UTF-8 Unicode glyphs.",
+    "releaseNotes":  "OmniControl Suite v6.6.1 Instant 1-Click Master Auto-Optimize Release:\n- Direct Dashboard Master Tile: Added glowing \u0027⚡ AUTO-OPTIMIZE \u0026 UNLOCK ALL PERMISSIONS\u0027 button directly on the main Dashboard Quick Control Center.\n- Universal Hardware Diagnostics Matrix: Accessible via Settings and clickable card status badges with 1-click solutions for all 12 core subsystems.\n- 4-Tier Standardized Status System: Emerald Active, Slate Standby, Amber Restricted, and Ruby Hardware-Locked.\n- Clean Unicode Glyphs \u0026 Zero Overlaps.",
     "publishDate":  "2026-08-19",
-    "version":  "6.6.0",
-    "downloadUrl":  "https://github.com/Vomitted/OmniControl/releases/download/v6.6.0/OmniControlSuite.exe"
+    "version":  "6.6.1",
+    "downloadUrl":  "https://github.com/Vomitted/OmniControl/releases/download/v6.6.1/OmniControlSuite.exe"
 }
