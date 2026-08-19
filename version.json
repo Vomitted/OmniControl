@@ -1,6 +1,6 @@
 {
-  "version": "6.3.0",
-  "downloadUrl": "https://github.com/Vomitted/OmniControl/releases/download/v6.3.0/OmniControlSuite.exe",
+  "version": "6.4.0",
+  "downloadUrl": "https://github.com/Vomitted/OmniControl/releases/download/v6.4.0/OmniControlSuite.exe",
   "releaseNotes": "Dell & Alienware AWCC 100% Max Turbo fan control, Dual TaskScheduler & Registry autostart, Real-time Settings sync, Zero-flicker fullscreen",
   "publishDate": "2026-08-19"
 }
