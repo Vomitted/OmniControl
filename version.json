@@ -1,6 +1,6 @@
 {
-    "releaseNotes":  "OmniControl Suite v7.1.1 — Tri-Pillar Gaming Accelerator (Zero-Jitter, 0.8ms Input Lag, Rock-Solid FPS):\n- Rollback \u0026 Cleaned FrameGen: Fully removed theoretical FrameGen modules and spin-wait background loops. 0.0% idle CPU footprint.\n- Zero-Jitter Network Engine: Forces TCP NoDelay (Nagle disabled), 0ms delayed ACKs, and Windows Gaming QoS for minimum multiplayer ping.\n- 0.8ms Zero Input Lag: Locks 1.0ms MMIO precision timer and DirectFlip / Independent Flip presentation to bypass DWM compositing latency.\n- Rock-Solid FPS Stabilizer: 2050MHz GPU sweetspot lock and unparked CPU cores eliminate thermal throttling and frametime dips.",
+    "releaseNotes":  "OmniControl Suite v7.2.0 — DirectX Desktop Duplication (DDA) \u0026 DirectCompute Optical Flow Interpolator:\n- DirectX DDA Engine: Real hardware front-buffer capture via IDXGIOutputDuplication with 0-copy VRAM texture acquisition.\n- DirectCompute Optical Flow: Runs real-time HLSL compute shaders (cs_5_0) directly on the NVIDIA RTX 4060 GPU to calculate bidirectional motion interpolation.\n- Tri-Pillar Performance Hub: Zero-Jitter Network (TCP NoDelay), 0.8ms Zero Input Lag (DirectFlip \u0026 1.0ms timer), and Rock-Solid FPS (2050MHz sweetspot).\n- Global Hotkey: Ctrl + Shift + F.",
     "publishDate":  "2026-08-20",
-    "version":  "7.1.1",
-    "downloadUrl":  "https://github.com/Vomitted/OmniControl/releases/download/v7.1.1/OmniControlSuite.exe"
+    "version":  "7.2.0",
+    "downloadUrl":  "https://github.com/Vomitted/OmniControl/releases/download/v7.2.0/OmniControlSuite.exe"
 }
