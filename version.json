@@ -1,6 +1,6 @@
 {
-    "releaseNotes":  "OmniControl Suite v6.9.7 — Master Anti-Spike Voltage Lock \u0026 Silent 0 RPM Cooling:\n- VoltMaster v5.1 Dynamic Thermal Governor: Permanently locks Zen 4 base voltage to ~1.05V (PERFBOOSTMODE 0 + EPP 128) during desktop use, browsing, and media, dropping idle/light temperatures from 75°C down to 36°C–42°C.\n- Heavy Compilation \u0026 Gaming Boost: Dynamically bursts to 4.8 GHz only during heavy code builds or active 3D games, then immediately locks back to cool 1.05V base within 1 second.\n- AeroCore v5.1 Fan Control: Strict 0 RPM Silent Floor below 54°C on AC and 50°C on battery, eliminating all fan revving and acoustic stepping.\n- Non-intrusive PowerNap v5 (zero NVIDIA driver alerts on lock).",
+    "releaseNotes":  "OmniControl Suite v7.0.0 — Grand Unified Architecture:\n- Shader Cache Policy \u0026 Preservation Engine: Added \u0027PRESERVE SHADERS\u0027 toggle to protect DX12 PSO, NVIDIA DXCache, AMD, and Unreal Engine shader pipelines during system sweeps, eliminating game pre-loading stutters.\n- Battery Health \u0026 Degradation Forensics Engine: Background 60s watt-hour depletion tracking, app energy efficiency scorecard (mW drained per active app), and one-click exportable battery forensics report.\n- Autonomous Zero-Lag Display Resync: Hooks WM_DISPLAYCHANGE (0x007E) to flush DWM frame latency and auto-lock 144Hz native refresh rate upon monitor connect/disconnect.\n- Universal Laptop Hardware Abstraction (HAL v2): Multi-vendor BIOS \u0026 WMI thermal bridge for HP, ASUS, Lenovo, Acer, Dell, and generic ACPI.\n- Restored VoltMaster CPU Controls \u0026 AeroFrame Low-Latency Governor.",
     "publishDate":  "2026-08-19",
-    "version":  "6.9.7",
-    "downloadUrl":  "https://github.com/Vomitted/OmniControl/releases/download/v6.9.7/OmniControlSuite.exe"
+    "version":  "7.0.0",
+    "downloadUrl":  "https://github.com/Vomitted/OmniControl/releases/download/v7.0.0/OmniControlSuite.exe"
 }
