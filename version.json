@@ -1,6 +1,6 @@
 {
-    "releaseNotes":  "OmniControl Suite v7.2.0 — DirectX Desktop Duplication (DDA) \u0026 DirectCompute Optical Flow Interpolator:\n- DirectX DDA Engine: Real hardware front-buffer capture via IDXGIOutputDuplication with 0-copy VRAM texture acquisition.\n- DirectCompute Optical Flow: Runs real-time HLSL compute shaders (cs_5_0) directly on the NVIDIA RTX 4060 GPU to calculate bidirectional motion interpolation.\n- Tri-Pillar Performance Hub: Zero-Jitter Network (TCP NoDelay), 0.8ms Zero Input Lag (DirectFlip \u0026 1.0ms timer), and Rock-Solid FPS (2050MHz sweetspot).\n- Global Hotkey: Ctrl + Shift + F.",
+    "releaseNotes":  "OmniControl Suite v7.3.0 — DPC Latency \u0026 Audio Buffer Watchdog:\n- Kernel DPC/ISR Latency Telemetry: Real-time sampling of Deferred Procedure Calls and Interrupt Service Routines via NtQuerySystemInformation across all 12 CPU cores.\n- DPC Spike Auto-Mitigation: Automatically resolves driver bus hangs (\u003e1000 µs) in nvlddmkm.sys and ndis.sys by re-aligning interrupt moderation and multimedia queues.\n- audiodg.exe Pro-Audio Watchdog: Locks audiodg.exe to dedicated CPU cores with Pro-Audio MMCSS priority to eliminate audio crackling and micro-stuttering.\n- DirectX Desktop Duplication (DDA) 2X Interpolator.\n- Tri-Pillar Performance Accelerator.",
     "publishDate":  "2026-08-20",
-    "version":  "7.2.0",
-    "downloadUrl":  "https://github.com/Vomitted/OmniControl/releases/download/v7.2.0/OmniControlSuite.exe"
+    "version":  "7.3.0",
+    "downloadUrl":  "https://github.com/Vomitted/OmniControl/releases/download/v7.3.0/OmniControlSuite.exe"
 }
