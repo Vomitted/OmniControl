@@ -1,6 +1,6 @@
 {
-  "version": "6.4.1",
-  "downloadUrl": "https://github.com/Vomitted/OmniControl/releases/download/v6.4.1/OmniControlSuite.exe",
-  "releaseNotes": "OmniControl Suite v6.4.1 Ultra-Low-Temp D3Cold Telemetry & ACPI Silent Idle:\n- Zero-Wakeup dGPU Telemetry: Eliminated continuous nvidia-smi background loops; NVIDIA RTX 4060 can sleep in 0.0W D3Cold state at idle.\n- Sub-40C Whisper Idle: Fixed fan curve floors so fans remain 0 RPM / minimum whisper under 68C.\n- GDI+ Animation Engine Throttling: 60ms interval with auto-pause on minimize reduces idle CPU usage to 0.0%.\n- ACPI EC Rate Limiting: Mutes manual fan commands during idle to let HP BIOS manage silent operation.",
-  "publishDate": "2026-08-19"
+    "releaseNotes":  "OmniControl Suite v6.5.0 OptiRouter Deep AI Engine \u0026 Battery Health SMART ACPI Overhaul:\n- OptiRouter AI v4 Dynamic Gaming Engine: Deep binary inspection (Unreal Engine 4/5, Unity, Source, RE Engine, CryEngine, DLSS, Vulkan, DirectX 12, EasyAntiCheat) dynamically routes games to NVIDIA RTX 4060 dGPU and productivity/browsers to AMD Radeon iGPU.\n- Multi-Drive Library Auto-Scanner: Parses Steam libraryfolders.vdf across all drives, Epic Games, Riot, GOG, and Xbox Game Pass.\n- Autonomous Real-Time Game Mode: Elevates process priority to AboveNormal, sets VoltMaster EPP=0 for minimum frame latency, and primes cooling.\n- Battery Health Fixed: Multi-class ACPI WMI parsing (BatteryStaticData + BatteryFullChargedCapacity + BatteryCycleCount) provides instant wear level % and cycle count diagnostics.",
+    "publishDate":  "2026-08-19",
+    "version":  "6.5.0",
+    "downloadUrl":  "https://github.com/Vomitted/OmniControl/releases/download/v6.5.0/OmniControlSuite.exe"
 }
