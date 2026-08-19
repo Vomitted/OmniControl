@@ -1,6 +1,6 @@
 {
-    "releaseNotes":  "OmniControl Suite v6.9.1 Dynamic Versioning \u0026 OmniNeural v4 Cognitive Mesh:\n- Fixed version string inlining bug where in-app updates displayed legacy v6.7.0.\n- OmniNeural v4 10-Agent Cognitive Mesh with autonomous multi-horizon classification (E-Sports Gaming, AAA Cinematic 3D, Creative Production, Software Dev, Media 4K, Travel Eco).\n- Dynamic EPP, CPB Voltage Burst Tamer, and 1.0ms Multimedia Timer.\n- Dual Executable Hot-Swap Sync: Auto-updater syncs both running application and Desktop executable.",
+    "releaseNotes":  "OmniControl Suite v6.9.2 Master UI Layout Restoration \u0026 OmniNeural v4 Cognitive Mesh:\n- Fixed blank black window startup bug by fully restoring the master content viewport and navigation hierarchy.\n- OmniNeural v4 10-Agent Cognitive Mesh with autonomous multi-horizon classification (E-Sports Gaming, AAA Cinematic 3D, Creative Production, Software Dev, Media 4K, Travel Eco).\n- Dynamic EPP, CPB Voltage Burst Tamer, and 1.0ms Multimedia Timer.\n- Dual Executable Hot-Swap Sync: Auto-updater syncs both running application and Desktop executable.",
     "publishDate":  "2026-08-19",
-    "version":  "6.9.1",
-    "downloadUrl":  "https://github.com/Vomitted/OmniControl/releases/download/v6.9.1/OmniControlSuite.exe"
+    "version":  "6.9.2",
+    "downloadUrl":  "https://github.com/Vomitted/OmniControl/releases/download/v6.9.2/OmniControlSuite.exe"
 }
