@@ -1,6 +1,6 @@
 {
-    "releaseNotes":  "OmniControl Suite v6.5.2 Fixes \u0026 UI Enhancements:\n- Card Header Overlap Fix: Strict width boundary and text ellipsis on all card titles prevent any collision with status pills.\n- Battery Conservation Active State: Highlighting active 60% / 80% / 100% modes with checkmark pills and card badges.\n- Instant Battery Diagnostics: Synchronous ACPI hardware capacity readings at startup eliminate \u0027Querying...\u0027 lag.\n- Universal Active Badges across presets, GPU profiles, fan modes, and CPU power plans.",
+    "releaseNotes":  "OmniControl Suite v6.5.3 Interactive Hot-Swap In-App Updater \u0026 UI Upgrades:\n- Live Download Progress Modal: Visual percentage, download speed, and MB progress bar with cancel and browser fallback.\n- Reliable Hot-Swap Engine: Robust administrator-elevated process termination, binary replacement, and instant relaunch.\n- Card Header Layout: Ellipsis trimming prevents text from ever colliding with status pills.\n- Battery Conservation: Active checkmark badges for 60% / 80% / 100% modes.\n- Instant Battery Diagnostics: Synchronous ACPI design capacity query on launch.",
     "publishDate":  "2026-08-19",
-    "version":  "6.5.2",
-    "downloadUrl":  "https://github.com/Vomitted/OmniControl/releases/download/v6.5.2/OmniControlSuite.exe"
+    "version":  "6.5.3",
+    "downloadUrl":  "https://github.com/Vomitted/OmniControl/releases/download/v6.5.3/OmniControlSuite.exe"
 }
