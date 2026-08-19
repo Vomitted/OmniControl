@@ -1,6 +1,6 @@
 {
-    "releaseNotes":  "OmniControl Suite v7.6.0 — Direct DWM Composition Bypass (Hardware Flip Model Enforcer):\n- Direct DWM Composition Bypass: Enforces true DirectFlip and Hardware Independent Flip presentation (GameDVR_FSEBehaviorMode = 2, DwmEnableMMCSS = 1, Flip Queue Size = 1) across all windowed and borderless games.\n- Eliminates DWM Compositing Delay: Bypasses DWM backpressure and saves 2W–4W of idle DWM composition load while cutting input latency.\n- Dynamic Power Budget Ratio Optimizer: Auto-shifts up to 85W Max TGP to the RTX 4060 when GPU-bound.\n- Resolution Scale \u0026 FSR/NIS Automator.\n- Kernel DPC Latency Watchdog \u0026 audiodg.exe Pro-Audio Lock.",
+    "releaseNotes":  "OmniControl Suite v7.7.0 — Micro-Thread Priority Gating for Anti-Cheat \u0026 DRM:\n- Anti-Cheat Priority Demotion: Automatically demotes background memory polling services (EasyAntiCheat, BattlEye, Riot Vanguard, EA Javelin, PunkBuster, ACE) to BELOW_NORMAL priority and pins them to secondary CPU cores.\n- Main Game High Priority: Elevates the active foreground game\u0027s rendering thread to HIGH_PRIORITY_CLASS across all 12 CPU cores.\n- Eliminates CPU voltage spikes and improves 1% low frametimes.\n- Direct DWM Composition Bypass (DirectFlip \u0026 Flip Queue = 1).\n- Dynamic Power Budget Ratio Optimizer (CPU vs GPU Rebalancing).\n- Resolution Scale \u0026 FSR/NIS Automator.\n- Kernel DPC Latency Watchdog \u0026 audiodg.exe Pro-Audio Lock.",
     "publishDate":  "2026-08-20",
-    "version":  "7.6.0",
-    "downloadUrl":  "https://github.com/Vomitted/OmniControl/releases/download/v7.6.0/OmniControlSuite.exe"
+    "version":  "7.7.0",
+    "downloadUrl":  "https://github.com/Vomitted/OmniControl/releases/download/v7.7.0/OmniControlSuite.exe"
 }
