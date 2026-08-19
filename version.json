@@ -1,6 +1,6 @@
 {
-    "releaseNotes":  "OmniControl Suite v7.0.2 — FrameGen Layout Fix \u0026 Zero-Lag Input Engine:\n- Fixed UI Card Overlap: Repositioned OmniFrameGen card with clean vertical spacing (y=196) and enabled smooth AutoScroll so telemetry cards never overlap.\n- Zero-Lag Presentation Engine: Engages DwmEnableMMCSS, DwmFlush, UltraLowLatencyMode (2), MaxPreRenderedFrames (1), and 1.0ms MMIO precision timer to eliminate input latency during 2X/3X frame generation.\n- Automatic High Process Priority for active games and Lossless Scaling.",
+    "releaseNotes":  "OmniControl Suite v7.0.3 — Real-Time GitHub Releases API \u0026 Live In-App Update Engine:\n- Real-Time Cloud Update Engine: Upgraded update checker to query GitHub Releases API directly, bypassing Fastly raw CDN caching for instant zero-delay update detection.\n- FrameGen Zero-Lag Architecture: DwmEnableMMCSS, DwmFlush, UltraLowLatencyMode (2), and 1.0ms MMIO precision timer.\n- Clean Non-Overlapping GPU Profiles View.",
     "publishDate":  "2026-08-20",
-    "version":  "7.0.2",
-    "downloadUrl":  "https://github.com/Vomitted/OmniControl/releases/download/v7.0.2/OmniControlSuite.exe"
+    "version":  "7.0.3",
+    "downloadUrl":  "https://github.com/Vomitted/OmniControl/releases/download/v7.0.3/OmniControlSuite.exe"
 }
