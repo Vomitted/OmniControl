@@ -1,6 +1,6 @@
 {
-    "releaseNotes":  "OmniControl Suite v7.0.1 — OmniFrameGen 2X FPS Doubler Hub:\n- OmniFrameGen 2X/3X Frame Multiplier Hub: Dedicated control center in GPU Profiles supporting NVIDIA Optical Flow (DLSS 3), AMD FSR 3, Lossless Scaling (LSFG), and AeroPacing 72-\u003e144Hz smooth scanout.\n- NVIDIA Reflex Ultra Low Latency Integration: System profile scheduler tuning and 1.0ms MMIO precision timer to eliminate input lag.\n- In-Game Overlay FrameGen Indicator: Live tracking of 2X FrameGen active status and display refresh rate.",
-    "publishDate":  "2026-08-19",
-    "version":  "7.0.1",
-    "downloadUrl":  "https://github.com/Vomitted/OmniControl/releases/download/v7.0.1/OmniControlSuite.exe"
+    "releaseNotes":  "OmniControl Suite v7.0.2 — FrameGen Layout Fix \u0026 Zero-Lag Input Engine:\n- Fixed UI Card Overlap: Repositioned OmniFrameGen card with clean vertical spacing (y=196) and enabled smooth AutoScroll so telemetry cards never overlap.\n- Zero-Lag Presentation Engine: Engages DwmEnableMMCSS, DwmFlush, UltraLowLatencyMode (2), MaxPreRenderedFrames (1), and 1.0ms MMIO precision timer to eliminate input latency during 2X/3X frame generation.\n- Automatic High Process Priority for active games and Lossless Scaling.",
+    "publishDate":  "2026-08-20",
+    "version":  "7.0.2",
+    "downloadUrl":  "https://github.com/Vomitted/OmniControl/releases/download/v7.0.2/OmniControlSuite.exe"
 }
