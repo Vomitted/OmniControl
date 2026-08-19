@@ -1,6 +1,6 @@
 {
-    "releaseNotes":  "OmniControl Suite v6.9.6 — PowerNap Lock \u0026 NVIDIA Notification Fix:\n- PowerNap v5 Non-Intrusive Idle Quiescer: Fixed NVIDIA driver reset notifications upon workstation lock by replacing invasive GPU clock clamping and display mode resets with native CPU EPP 200 power-saving and silent fan curves.\n- Zero driver alerts, zero screen flicker, and instant silent recovery upon user unlock.\n- OmniStabilizer v5 System Engine \u0026 AeroCore v5 Predictive Fan PID.",
+    "releaseNotes":  "OmniControl Suite v6.9.7 — Master Anti-Spike Voltage Lock \u0026 Silent 0 RPM Cooling:\n- VoltMaster v5.1 Dynamic Thermal Governor: Permanently locks Zen 4 base voltage to ~1.05V (PERFBOOSTMODE 0 + EPP 128) during desktop use, browsing, and media, dropping idle/light temperatures from 75°C down to 36°C–42°C.\n- Heavy Compilation \u0026 Gaming Boost: Dynamically bursts to 4.8 GHz only during heavy code builds or active 3D games, then immediately locks back to cool 1.05V base within 1 second.\n- AeroCore v5.1 Fan Control: Strict 0 RPM Silent Floor below 54°C on AC and 50°C on battery, eliminating all fan revving and acoustic stepping.\n- Non-intrusive PowerNap v5 (zero NVIDIA driver alerts on lock).",
     "publishDate":  "2026-08-19",
-    "version":  "6.9.6",
-    "downloadUrl":  "https://github.com/Vomitted/OmniControl/releases/download/v6.9.6/OmniControlSuite.exe"
+    "version":  "6.9.7",
+    "downloadUrl":  "https://github.com/Vomitted/OmniControl/releases/download/v6.9.7/OmniControlSuite.exe"
 }
