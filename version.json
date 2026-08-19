@@ -1,6 +1,6 @@
 {
-    "releaseNotes":  "OmniControl Suite v8.9.0 — Complete Explanations \u0026 UI Spacing Polish:\n• Crystal-Clear Plain-English Explanations: Every card now includes a full, easy-to-understand explanation of what the feature does, the problem it solves, and the exact FPS/battery benefit.\n• Generous Card Geometry (166px Height, 18px Vertical Gap): Zero overlapping controls, zero clipped text, with full auto-wrapping labels across all screen resolutions.\n• Re-parented Network and Startup cards cleanly into the System Tools Hub.\n• OmniNeural v4 (18-Agent Autonomous Mesh) fully active for Gaming, Work, and Battery orchestration.\n• Scrollable In-App Update Dialog with fixed bottom buttons.",
+    "releaseNotes":  "OmniControl Suite v8.10.0 — Complete Top-to-Bottom UI Overhaul:\n• 5 Streamlined Master Hubs in Sidebar: Consolidated 9 fragmented navigation tabs into 5 spacious, beautifully spaced Hubs (Dashboard, Gaming \u0026 GPU, Fans \u0026 Power, System Tools, Settings \u0026 Logs).\n• Eradicated all UI overlaps: Standardized card geometry (166px height, 18px vertical progression) and dedicated zoning for status, rich explanations, and action buttons.\n• Comprehensive Plain-English Explanations: Every single card now features clear, easy-to-understand explanations of what the feature does, the problem it solves, and the concrete FPS/battery benefit.\n• Seamless Sub-Category Pill Navigation: Responsive viewports with zero endless vertical scrolling.\n• OmniNeural v4 (18-Agent Autonomous Mesh) fully active for Gaming, Work, and Battery orchestration.\n• Scrollable In-App Update Dialog with fixed bottom buttons.",
     "publishDate":  "2026-08-20",
-    "version":  "8.9.0",
-    "downloadUrl":  "https://github.com/Vomitted/OmniControl/releases/download/v8.9.0/OmniControlSuite.exe"
+    "version":  "8.10.0",
+    "downloadUrl":  "https://github.com/Vomitted/OmniControl/releases/download/v8.10.0/OmniControlSuite.exe"
 }
