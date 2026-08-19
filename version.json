@@ -1,6 +1,6 @@
 {
   "version": "6.4.0",
   "downloadUrl": "https://github.com/Vomitted/OmniControl/releases/download/v6.4.0/OmniControlSuite.exe",
-  "releaseNotes": "Dell & Alienware AWCC 100% Max Turbo fan control, Dual TaskScheduler & Registry autostart, Real-time Settings sync, Zero-flicker fullscreen",
+  "releaseNotes": "OmniControl Suite v6.4.0 Silent Idle Overhaul, Shader Pre-Warming & Advanced Power Suite:\nâ€¢ Silent Idle Acoustics Overhaul: Whisper floor dynamically hands thermal control back to quiet BIOS envelope below 55Â°C, dropping fans to 0 RPM / minimum RPM on idle desktop.\nâ€¢ Telemetry & WMI Polling Throttling: 4-second tachometer caching and D3Cold-aware polling eliminating idle CPU consumption.\nâ€¢ DirectX / D3D Shader Pre-Warming: 1-click tool purges fragmented shader caches and pre-compiles D3D pipelines, eliminating Unreal Engine 5 & DX12 stuttering.\nâ€¢ Adaptive Battery Conservation Mode: Direct HP BIOS/WMI charge limiter for 60% (Desk Mode) and 80% (Longevity Mode).\nâ€¢ Silent Battery Discharge Estimator: Real-time mW/mWh time-to-empty calculations with exact minutes remaining.\nâ€¢ Lightweight In-Game Overlay: Minimalist transparent GDI+ HUD with live FPS, temps, clocks, and RAM (Hotkey: Ctrl+Shift+O).\nâ€¢ Modern Tray Quick Panel: Windows 11-style dark-glass flyout with live dials, presets, and fan toggles on tray click.\nâ€¢ 15-Second Diagnostic Benchmark: Multi-threaded compute & thermal stress check generating shareable OmniScores.",
   "publishDate": "2026-08-19"
 }
