@@ -1,6 +1,6 @@
 {
-    "releaseNotes":  "OmniControl Suite v7.0.3 — Real-Time GitHub Releases API \u0026 Live In-App Update Engine:\n- Real-Time Cloud Update Engine: Upgraded update checker to query GitHub Releases API directly, bypassing Fastly raw CDN caching for instant zero-delay update detection.\n- FrameGen Zero-Lag Architecture: DwmEnableMMCSS, DwmFlush, UltraLowLatencyMode (2), and 1.0ms MMIO precision timer.\n- Clean Non-Overlapping GPU Profiles View.",
+    "releaseNotes":  "OmniControl Suite v7.0.4 — AI Neural FrameGen \u0026 Live Indicator Hub:\n- AI Neural Motion Flow: Dynamic frametime predictor \u0026 swapchain queue governor to eliminate micro-stutters and input lag.\n- Live Status Badge: Dynamic indicator (🟢 2X AI FRAMEGEN ACTIVE (144Hz · 0.8ms ZERO-LAG)) when FrameGen is on.\n- Perfect Layout: Fully resolved GPU Profiles card overlap with clean vertical stacking and smooth scrolling.\n- Direct GitHub API Update Engine: Real-time update checks without CDN caching.",
     "publishDate":  "2026-08-20",
-    "version":  "7.0.3",
-    "downloadUrl":  "https://github.com/Vomitted/OmniControl/releases/download/v7.0.3/OmniControlSuite.exe"
+    "version":  "7.0.4",
+    "downloadUrl":  "https://github.com/Vomitted/OmniControl/releases/download/v7.0.4/OmniControlSuite.exe"
 }
