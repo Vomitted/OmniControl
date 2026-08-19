@@ -1,6 +1,6 @@
 {
-    "releaseNotes":  "OmniControl Suite v6.9.5 — Hardware Stabilization \u0026 High Performance Overhaul:\n- AeroCore v5 Predictive Thermal Governor: Zero-RPM Smart Silent Floor below 52°C, predictive 2nd-order thermal trajectory forecasting ({forecast} = T + 1.6 \\frac{dT}{dt} + 0.4 \\frac{d^2T}{dt^2}$), and +3% PWM/s acoustic slew-rate damping.\n- OmniStabilizer v5 System Engine: Autonomous background noise quiescing for TiWorker/SearchIndexer/Telemetry during gaming, High process priority elevation for active 3D titles, and 1.0ms Multimedia Timer resolution.\n- Dynamic EPP Frequency Stepper: Locks 1.05V base clock on light desktop tasks (dropping idle temperatures down to 36°C–42°C), bursting to 4.8 GHz only during heavy compilation/gaming.\n- Standby Memory Compactor: Continuous working set compaction freeing 2+ GB RAM.",
+    "releaseNotes":  "OmniControl Suite v6.9.6 — PowerNap Lock \u0026 NVIDIA Notification Fix:\n- PowerNap v5 Non-Intrusive Idle Quiescer: Fixed NVIDIA driver reset notifications upon workstation lock by replacing invasive GPU clock clamping and display mode resets with native CPU EPP 200 power-saving and silent fan curves.\n- Zero driver alerts, zero screen flicker, and instant silent recovery upon user unlock.\n- OmniStabilizer v5 System Engine \u0026 AeroCore v5 Predictive Fan PID.",
     "publishDate":  "2026-08-19",
-    "version":  "6.9.5",
-    "downloadUrl":  "https://github.com/Vomitted/OmniControl/releases/download/v6.9.5/OmniControlSuite.exe"
+    "version":  "6.9.6",
+    "downloadUrl":  "https://github.com/Vomitted/OmniControl/releases/download/v6.9.6/OmniControlSuite.exe"
 }
