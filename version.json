@@ -1,6 +1,6 @@
 {
-    "releaseNotes":  "OmniControl Suite v7.4.0 — Resolution Scale \u0026 FSR/NIS Injection Automator:\n- Battery Auto-Scale Switcher: Automatically switches active render scale to 75% (1440x810) on battery discharge to reduce GPU load by 32% and preserve battery life, then restores 100% 1080p on AC power.\n- FSR / NVIDIA Image Scaling (NIS) Driver Injection: Injects spatial upscaling and Contrast Adaptive Sharpening (CAS) directly into the graphics pipeline for crisp visual clarity.\n- Render Scale Presets: 75% Quality (-32% power), 67% Balanced (-44% power), and 50% Performance (-58% power).\n- Kernel DPC Latency Watchdog \u0026 audiodg.exe Pro-Audio Lock.\n- Tri-Pillar Performance Accelerator (Zero-Jitter, 0.8ms Lag, 2050MHz Sweetspot).",
+    "releaseNotes":  "OmniControl Suite v7.5.0 — Dynamic Power Budget Ratio Optimizer (CPU vs GPU Rebalancing):\n- Dynamic Power Budget Rebalancing: Dynamically detects GPU-bound games (GPU \u003e= 88%, CPU \u003c= 45%) and automatically steps the CPU down to an 18W low-voltage state, shifting full power/cooling headroom to the RTX 4060 for up to +18% higher framerates.\n- Power Budget Modes: Max GPU Shift (18W CPU · 85W GPU), Balanced Ratio (25W CPU · 65W GPU), Max CPU Shift (45W CPU · 50W GPU), and Autonomous Dynamic Auto.\n- Resolution Scale \u0026 FSR/NIS Automator: Auto-scales to 75% on battery to save 32% GPU power.\n- Kernel DPC Latency Watchdog \u0026 audiodg.exe Pro-Audio Lock.\n- Tri-Pillar Performance Accelerator (Zero-Jitter, 0.8ms Lag, 2050MHz Sweetspot).",
     "publishDate":  "2026-08-20",
-    "version":  "7.4.0",
-    "downloadUrl":  "https://github.com/Vomitted/OmniControl/releases/download/v7.4.0/OmniControlSuite.exe"
+    "version":  "7.5.0",
+    "downloadUrl":  "https://github.com/Vomitted/OmniControl/releases/download/v7.5.0/OmniControlSuite.exe"
 }
