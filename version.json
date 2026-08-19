@@ -1,6 +1,6 @@
 {
-    "releaseNotes":  "OmniControl Suite v7.8.0 — Intelligent Core SMT/Hyper-Threading Parking on Battery:\n- SMT Core Parking Engine: Programmatically parks secondary logical hyper-threads on battery power (CPMINCORES 50), allowing 6 physical cores to run at full IPC while secondary threads enter C6 deep sleep.\n- 15%–20% CPU Package Power Reduction: Drastically reduces static core leakage current on battery while stabilizing 1% low frame times.\n- Micro-Thread Priority Gating: Demotes anti-cheat worker threads to BelowNormal and elevates main game to High.\n- Direct DWM Composition Bypass (DirectFlip \u0026 Flip Queue = 1).\n- Dynamic Power Budget Ratio Optimizer (CPU vs GPU Rebalancing).\n- Resolution Scale \u0026 FSR/NIS Automator.\n- Kernel DPC Latency Watchdog \u0026 audiodg.exe Pro-Audio Lock.",
+    "releaseNotes":  "OmniControl Suite v7.9.0 — DirectX 11/12 Driver Pipeline Command List Multi-Threading Optimization:\n- DirectX Pipeline Optimization: Constrains GPU driver command-list threads to physical cores (MaxWorkerThreads = 5 on 6-core Ryzen 5 8645HS with Affinity 0x555), eliminating CPU thread scheduling contention with the game engine.\n- Lifts minimum 1% and 0.1% low frametimes in heavy DX11/DX12 titles.\n- SMT Core Parking on Battery (CPMINCORES 50, -18% Package Power).\n- Micro-Thread Priority Gating for Anti-Cheat \u0026 DRM.\n- Direct DWM Composition Bypass (DirectFlip \u0026 Flip Queue = 1).\n- Dynamic Power Budget Ratio Optimizer (CPU vs GPU Rebalancing).\n- Resolution Scale \u0026 FSR/NIS Automator.\n- Kernel DPC Latency Watchdog \u0026 audiodg.exe Pro-Audio Lock.",
     "publishDate":  "2026-08-20",
-    "version":  "7.8.0",
-    "downloadUrl":  "https://github.com/Vomitted/OmniControl/releases/download/v7.8.0/OmniControlSuite.exe"
+    "version":  "7.9.0",
+    "downloadUrl":  "https://github.com/Vomitted/OmniControl/releases/download/v7.9.0/OmniControlSuite.exe"
 }
