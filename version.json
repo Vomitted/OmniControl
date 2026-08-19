@@ -1,6 +1,6 @@
 {
-    "releaseNotes":  "OmniControl Suite v7.0.8 — Network Jitter Fix \u0026 OmniMotion FrameGen Architecture:\n- Zero-Jitter Network Engine: Fixed network lag by resetting NetworkThrottlingIndex to Windows Gaming QoS default (10), optimizing TcpAckFrequency/TCPNoDelay for low ping, and flushing DNS cache.\n- OmniMotion AI Native FrameGen: In-house 2X/3X frame generator built from scratch using QPC cadence tracking and DWM presentation queues.\n- Force DLSS 3 \u0026 Force Lossless Scaling: Hardware Ada Optical Flow override and universal LSFG auto-hook.\n- Dynamic Selected Mode Lighting.",
+    "releaseNotes":  "OmniControl Suite v7.0.9 — Automatic PC Restart Prompts \u0026 Kernel Synchronization:\n- Automatic Restart Prompts: Whenever an action requires a PC restart (such as turning on HAGS for RTX 4060 Optical Flow FrameGen or resetting the TCP/IP network stack), the app now provides a 1-click confirmation dialog to restart your PC immediately or defer until later.\n- Zero-Jitter Network Engine: Restored standard gaming QoS to fix packet jitter and ping spikes in multiplayer games.\n- OmniMotion AI Native: In-house 2X/3X frame generation engine with dynamic button lighting.",
     "publishDate":  "2026-08-20",
-    "version":  "7.0.8",
-    "downloadUrl":  "https://github.com/Vomitted/OmniControl/releases/download/v7.0.8/OmniControlSuite.exe"
+    "version":  "7.0.9",
+    "downloadUrl":  "https://github.com/Vomitted/OmniControl/releases/download/v7.0.9/OmniControlSuite.exe"
 }
