@@ -1,6 +1,6 @@
 {
-    "releaseNotes":  "OmniControl Suite v6.5.1 Universal Live Feature Indications \u0026 Diagnostic Warning Badges:\n- Card Live Status Badges: Every feature card across all 9 views now displays dynamic status pills indicating ON (Emerald Green), STANDBY (Slate Gray), RESTRICTED (Amber Gold), or UNSUPPORTED (Ruby Red).\n- AI Agent Mesh Live Indicators: All 8 specialized AI agents display real-time active dots and status tags.\n- Hardware \u0026 Permission Warning Guards: Instantly warns if permissions or hardware features are disabled or locked.\n- Standalone Single-File Executable published directly to Desktop and GitHub.",
+    "releaseNotes":  "OmniControl Suite v6.5.2 Fixes \u0026 UI Enhancements:\n- Card Header Overlap Fix: Strict width boundary and text ellipsis on all card titles prevent any collision with status pills.\n- Battery Conservation Active State: Highlighting active 60% / 80% / 100% modes with checkmark pills and card badges.\n- Instant Battery Diagnostics: Synchronous ACPI hardware capacity readings at startup eliminate \u0027Querying...\u0027 lag.\n- Universal Active Badges across presets, GPU profiles, fan modes, and CPU power plans.",
     "publishDate":  "2026-08-19",
-    "version":  "6.5.1",
-    "downloadUrl":  "https://github.com/Vomitted/OmniControl/releases/download/v6.5.1/OmniControlSuite.exe"
+    "version":  "6.5.2",
+    "downloadUrl":  "https://github.com/Vomitted/OmniControl/releases/download/v6.5.2/OmniControlSuite.exe"
 }
