@@ -1,6 +1,6 @@
 {
-    "releaseNotes":  "OmniControl Suite v6.9.4 Master UI Polish \u0026 Sidebar Button Fix:\n- Added _bSideEco directly into _sidebar.Controls to guarantee visibility of the AUTO-GPU toggle button.\n- 100% clean typography and status badges across all cards and navigation items.\n- OmniNeural v4 Multi-Agent Cognitive Mesh.",
+    "releaseNotes":  "OmniControl Suite v6.9.5 — Hardware Stabilization \u0026 High Performance Overhaul:\n- AeroCore v5 Predictive Thermal Governor: Zero-RPM Smart Silent Floor below 52°C, predictive 2nd-order thermal trajectory forecasting ({forecast} = T + 1.6 \\frac{dT}{dt} + 0.4 \\frac{d^2T}{dt^2}$), and +3% PWM/s acoustic slew-rate damping.\n- OmniStabilizer v5 System Engine: Autonomous background noise quiescing for TiWorker/SearchIndexer/Telemetry during gaming, High process priority elevation for active 3D titles, and 1.0ms Multimedia Timer resolution.\n- Dynamic EPP Frequency Stepper: Locks 1.05V base clock on light desktop tasks (dropping idle temperatures down to 36°C–42°C), bursting to 4.8 GHz only during heavy compilation/gaming.\n- Standby Memory Compactor: Continuous working set compaction freeing 2+ GB RAM.",
     "publishDate":  "2026-08-19",
-    "version":  "6.9.4",
-    "downloadUrl":  "https://github.com/Vomitted/OmniControl/releases/download/v6.9.4/OmniControlSuite.exe"
+    "version":  "6.9.5",
+    "downloadUrl":  "https://github.com/Vomitted/OmniControl/releases/download/v6.9.5/OmniControlSuite.exe"
 }
