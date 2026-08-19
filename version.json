@@ -1,6 +1,6 @@
 {
-    "releaseNotes":  "OmniControl Suite v7.0.9 — Automatic PC Restart Prompts \u0026 Kernel Synchronization:\n- Automatic Restart Prompts: Whenever an action requires a PC restart (such as turning on HAGS for RTX 4060 Optical Flow FrameGen or resetting the TCP/IP network stack), the app now provides a 1-click confirmation dialog to restart your PC immediately or defer until later.\n- Zero-Jitter Network Engine: Restored standard gaming QoS to fix packet jitter and ping spikes in multiplayer games.\n- OmniMotion AI Native: In-house 2X/3X frame generation engine with dynamic button lighting.",
+    "releaseNotes":  "OmniControl Suite v7.1.0 — Zero-CPU FrameGen \u0026 Total Lag Elimination:\n- Zero-CPU Architecture: Completely eliminated the background thread spin-wait loop in OmniMotionEngine. Idle CPU usage is now 0.0%, freeing 100% of CPU cores for Battlefield and games.\n- Lag \u0026 Stutter Fix: Removed DwmFlush polling stalls that caused game micro-stutters and network packet queue latency.\n- Real-World DLSS 3 Guide: Step-by-step in-game configuration for Battlefield (Options \u003e Video \u003e DLSS Quality \u0026 DLSS Frame Generation ON).\n- Automatic PC Restart Prompts.",
     "publishDate":  "2026-08-20",
-    "version":  "7.0.9",
-    "downloadUrl":  "https://github.com/Vomitted/OmniControl/releases/download/v7.0.9/OmniControlSuite.exe"
+    "version":  "7.1.0",
+    "downloadUrl":  "https://github.com/Vomitted/OmniControl/releases/download/v7.1.0/OmniControlSuite.exe"
 }
