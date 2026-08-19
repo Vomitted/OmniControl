@@ -1,6 +1,6 @@
 {
-    "releaseNotes":  "OmniControl Suite v6.6.1 Instant 1-Click Master Auto-Optimize Release:\n- Direct Dashboard Master Tile: Added glowing \u0027⚡ AUTO-OPTIMIZE \u0026 UNLOCK ALL PERMISSIONS\u0027 button directly on the main Dashboard Quick Control Center.\n- Universal Hardware Diagnostics Matrix: Accessible via Settings and clickable card status badges with 1-click solutions for all 12 core subsystems.\n- 4-Tier Standardized Status System: Emerald Active, Slate Standby, Amber Restricted, and Ruby Hardware-Locked.\n- Clean Unicode Glyphs \u0026 Zero Overlaps.",
+    "releaseNotes":  "OmniControl Suite v6.7.0 Massive Thermal \u0026 Acoustic Stabilization Overhaul:\n- AMD Zen 4 Anti-Spike Voltage Governor: Eliminates 1.45V micro-spikes by locking cool base frequency (~4.3 GHz @ 1.05V) and passive cooling hysteresis.\n- AeroCore Acoustic Damping \u0026 Slew Rate Limiter: Damps momentary temperature spikes with Exponential Moving Average (EMA) and +2% smooth PWM ramping, eliminating all fan whooshing and revving cycles.\n- Zero-Overhead Polling: Prevents dGPU wakeups when in D3Cold sleep (0.0W) and reduces WMI polling overhead.\n- Universal Hardware Diagnostics: Accessible via Dashboard and clickable card badges with 1-click auto-optimization.\n- Clean UTF-8 Typography \u0026 Zero Overlaps.",
     "publishDate":  "2026-08-19",
-    "version":  "6.6.1",
-    "downloadUrl":  "https://github.com/Vomitted/OmniControl/releases/download/v6.6.1/OmniControlSuite.exe"
+    "version":  "6.7.0",
+    "downloadUrl":  "https://github.com/Vomitted/OmniControl/releases/download/v6.7.0/OmniControlSuite.exe"
 }
