@@ -1,6 +1,6 @@
 {
-    "releaseNotes":  "OmniControl Suite v6.9.0 OmniNeural v4 Cognitive Multi-Agent Mesh Overhaul:\n- 10-Agent Cognitive Architecture: Autonomous mesh orchestrating Gaming, Work, Creation, Coding, Media, and Travel Eco.\n- E-Sports Low Latency Engine: Clamps maximum GPU clocks, sets 1.0ms Multimedia Timer (timeBeginPeriod), elevates process scheduling, and locks 144Hz.\n- AAA Cinematic Gaming Governor: Adaptive precision boost with thermal trajectory PID forecasting to maintain highest boost clocks without thermal throttling.\n- Creative 3D \u0026 Video Production: Hardware-accelerated CUDA/NVENC routing for Blender, Unreal Engine, Premiere Pro, and DaVinci Resolve with steady quiet cooling.\n- Software Engineering Burst Booster: Instant 4.8GHz burst on compilation/build, seamlessly dropping to cold 0 RPM silent idle while typing.\n- Media 4K \u0026 Battery Travel Eco: 0.0W D3Cold GPU sleep, 60Hz content-aware panel step-down, and 0 RPM whisper cooling.",
+    "releaseNotes":  "OmniControl Suite v6.9.1 Dynamic Versioning \u0026 OmniNeural v4 Cognitive Mesh:\n- Fixed version string inlining bug where in-app updates displayed legacy v6.7.0.\n- OmniNeural v4 10-Agent Cognitive Mesh with autonomous multi-horizon classification (E-Sports Gaming, AAA Cinematic 3D, Creative Production, Software Dev, Media 4K, Travel Eco).\n- Dynamic EPP, CPB Voltage Burst Tamer, and 1.0ms Multimedia Timer.\n- Dual Executable Hot-Swap Sync: Auto-updater syncs both running application and Desktop executable.",
     "publishDate":  "2026-08-19",
-    "version":  "6.9.0",
-    "downloadUrl":  "https://github.com/Vomitted/OmniControl/releases/download/v6.9.0/OmniControlSuite.exe"
+    "version":  "6.9.1",
+    "downloadUrl":  "https://github.com/Vomitted/OmniControl/releases/download/v6.9.1/OmniControlSuite.exe"
 }
