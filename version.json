@@ -1,6 +1,6 @@
 {
-    "releaseNotes":  "OmniControl Suite v6.9.2 Master UI Layout Restoration \u0026 OmniNeural v4 Cognitive Mesh:\n- Fixed blank black window startup bug by fully restoring the master content viewport and navigation hierarchy.\n- OmniNeural v4 10-Agent Cognitive Mesh with autonomous multi-horizon classification (E-Sports Gaming, AAA Cinematic 3D, Creative Production, Software Dev, Media 4K, Travel Eco).\n- Dynamic EPP, CPB Voltage Burst Tamer, and 1.0ms Multimedia Timer.\n- Dual Executable Hot-Swap Sync: Auto-updater syncs both running application and Desktop executable.",
+    "releaseNotes":  "OmniControl Suite v6.9.3 UI Polish \u0026 Auto-GPU Suite Restoration:\n- Restored missing AUTO-GPU button in the sidebar with active toggle state.\n- Complete UI typography overhaul: removed all broken unicode symbols, emoji glyphs, and mojibake across all cards, navigation buttons, and status pills.\n- Clean, modern, luxury dark aesthetic across all 9 subsystem views.\n- OmniNeural v4 Multi-Agent Cognitive Mesh.",
     "publishDate":  "2026-08-19",
-    "version":  "6.9.2",
-    "downloadUrl":  "https://github.com/Vomitted/OmniControl/releases/download/v6.9.2/OmniControlSuite.exe"
+    "version":  "6.9.3",
+    "downloadUrl":  "https://github.com/Vomitted/OmniControl/releases/download/v6.9.3/OmniControlSuite.exe"
 }
