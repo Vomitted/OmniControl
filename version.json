@@ -1,6 +1,6 @@
 {
-    "releaseNotes": "OmniControl Suite v8.15.0 - Professional Engineering Redesign:\n- Eliminated AI vibe-coded aesthetics: Replaced glowing gradients with solid, clean, matte dark backgrounds and precise 1px borders.\n- Crisp left-aligned layouts, asymmetric grids, and dense information hierarchy.\n- Concrete engineering-grade micro-copy with exact API, WMI, and registry descriptions.\n- Full multi-line dynamic tooltips across all controls.",
+    "releaseNotes": "OmniControl Suite v8.15.1 - System Tools Layout & Fan Sync Fix:\n- Fixed overlapping cards in System Tools (eliminated stray network and process cards).\n- Clean, full-width Storage & Shader Cleaner and Startup Manager views.\n- Synchronized 100% Max Fans toggle: Toggling off now automatically restores AI Smart mode without manual switching.\n- Removed disruptive modal dialogs for a seamless in-app experience.",
     "publishDate": "2026-08-20",
-    "version": "8.15.0",
-    "downloadUrl": "https://github.com/Vomitted/OmniControl/releases/download/v8.15.0/OmniControlSuite.exe"
+    "version": "8.15.1",
+    "downloadUrl": "https://github.com/Vomitted/OmniControl/releases/download/v8.15.1/OmniControlSuite.exe"
 }
