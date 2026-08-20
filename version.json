@@ -1,6 +1,6 @@
 {
-    "releaseNotes": "OmniControl Suite v8.15.3 - Master Telemetry & UX Optimization:\n- Dashboard Ring Gauges: Explicit dGPU RTX 4060 branding, live VRAM & 0.0W D3Cold status, and charge/discharge sub-labels.\n- Refined Tray Context Menu: Clean, professional labels for presets, AI fan modes, In-Game HUD, and RAM cleaner.\n- Clean button typography and synchronized performance indicators across all views.",
+    "releaseNotes": "OmniControl Suite v8.15.4 - CPU Power Plan & Gaming Features Polish:\n- Fixed CPU Power Plan execution: Direct hardware EPP, Boost Mode, and Throttle Max enforcement across Windows 10/11, harmonized with UXTU.\n- Fixed Gaming & GPU cards: All 12 performance and architecture cards now consistently appear in their proper subcategories without missing cards or overlap.\n- Full multi-line dynamic tooltips across all controls.",
     "publishDate": "2026-08-20",
-    "version": "8.15.3",
-    "downloadUrl": "https://github.com/Vomitted/OmniControl/releases/download/v8.15.3/OmniControlSuite.exe"
+    "version": "8.15.4",
+    "downloadUrl": "https://github.com/Vomitted/OmniControl/releases/download/v8.15.4/OmniControlSuite.exe"
 }
