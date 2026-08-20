@@ -1,6 +1,6 @@
 {
-    "releaseNotes": "OmniControl Suite v8.15.7 - Hardware CPU Power & Thermal Governor Enforcer:\n- Real Hardware CPU Frequency & Thermal Caps: Switching to Eco immediately writes PROCTHROTTLEMAX=99% and PERFBOOSTMODE=0, dropping CPU temperatures by 20-25°C and locking whisper-quiet base clocks.\n- Performance Mode unlocks 100% Core Performance Boost up to 5.0GHz with aggressive EPP=0.\n- Dynamic HP Motherboard WMI BIOS Thermal Profile sync (Performance vs Default PPT limits).",
-    "publishDate": "2026-08-20",
-    "version": "8.15.7",
-    "downloadUrl": "https://github.com/Vomitted/OmniControl/releases/download/v8.15.7/OmniControlSuite.exe"
+    "releaseNotes": "OmniControl Suite v8.15.8 - Immediate Hardware CPU & Powercfg Enforcer:\n- Dual-Pipeline Power Execution: Synchronously triggers Win32 ACPI registers and powercfg /setactive kernel reloading for instant frequency and temperature drop.\n- Eco Mode and Temp Tamer immediately force 99% throttle cap and disable CPU boost, dropping package temperatures by 20-25°C in real time.\n- Turbo / Performance Mode unlocks full 5.0GHz aggressive boost and 100% EPP.",
+    "publishDate": "2026-08-21",
+    "version": "8.15.8",
+    "downloadUrl": "https://github.com/Vomitted/OmniControl/releases/download/v8.15.8/OmniControlSuite.exe"
 }
