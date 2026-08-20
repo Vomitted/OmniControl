@@ -1,6 +1,6 @@
 {
-    "releaseNotes": "OmniControl Suite v8.13.2 - Continuous Whisper Cooling & Anti-Oscillation Fix:\n- Eliminated 0 RPM fan shutoff and sudden 70°C fan blast oscillation.\n- Established permanent 28% PWM (~1,800 RPM) whisper floor to continuously exhaust idle heat.\n- Implemented smooth non-pulsing linear temperature-to-PWM curve across all thermal states.\n- Added 6-second HP EC keepalive to prevent BIOS from reverting to stock 0 RPM curve.",
+    "releaseNotes": "OmniControl Suite v8.13.3 - Acoustic Silence & Thermal Lock Fix:\n- Fixed ThermalShield resetting CPU to 100% boost upon deactivation (preserves TempTamer 99% cool lock).\n- Lowered baseline gaming floor to 34% PWM (~2,200 RPM) to eliminate loud fan screaming during light gaming/idle.\n- Smooth rate-limited fan ramps (+2% / -1%) for completely seamless acoustic transitions.\n- Maintained whisper idle floor (~1,750 RPM) and full EcoQoS background throttling.",
     "publishDate": "2026-08-20",
-    "version": "8.13.2",
-    "downloadUrl": "https://github.com/Vomitted/OmniControl/releases/download/v8.13.2/OmniControlSuite.exe"
+    "version": "8.13.3",
+    "downloadUrl": "https://github.com/Vomitted/OmniControl/releases/download/v8.13.3/OmniControlSuite.exe"
 }
