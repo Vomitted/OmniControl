@@ -1,6 +1,6 @@
 {
-    "releaseNotes": "OmniControl Suite v8.13.8 - Complete Startup & Subcategory Fix:\n- Fixed NullReferenceException in SelectCleanSubCategory on startup.\n- All subcategory selectors across Gaming, Fans, Clean, and Settings now fully guarded against null references.\n- Desktop binary updated directly.",
+    "releaseNotes": "OmniControl Suite v8.13.9 - Civilized Acoustics & Ultra-Low CPU Overhaul:\n- Replaced aggressive fan revving with smooth, progressive, whisper-quiet curve (20% PWM / ~1,500 RPM whisper floor below 50°C).\n- Fixed fan stop-and-rev bug in dispatch loop.\n- Optimized UI animation timer to 50ms for near 0.0% background CPU consumption.\n- Forced 2D desktop apps to iGPU so RTX 4060 dGPU achieves 0.0W D3Cold sleep on idle.",
     "publishDate": "2026-08-20",
-    "version": "8.13.8",
-    "downloadUrl": "https://github.com/Vomitted/OmniControl/releases/download/v8.13.8/OmniControlSuite.exe"
+    "version": "8.13.9",
+    "downloadUrl": "https://github.com/Vomitted/OmniControl/releases/download/v8.13.9/OmniControlSuite.exe"
 }
