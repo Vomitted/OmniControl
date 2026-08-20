@@ -1,6 +1,6 @@
 {
-    "releaseNotes": "OmniControl Suite v8.15.8 - Immediate Hardware CPU & Powercfg Enforcer:\n- Dual-Pipeline Power Execution: Synchronously triggers Win32 ACPI registers and powercfg /setactive kernel reloading for instant frequency and temperature drop.\n- Eco Mode and Temp Tamer immediately force 99% throttle cap and disable CPU boost, dropping package temperatures by 20-25°C in real time.\n- Turbo / Performance Mode unlocks full 5.0GHz aggressive boost and 100% EPP.",
+    "releaseNotes": "OmniControl Suite v8.15.9 - Ultimate Performance Overhaul:\n- Zero Input Lag 2.0: Hardware MMIO NtSetTimerResolution native 0.5ms (500us) precision timer lock + Realtime GPU scheduling.\n- Zero-Jitter Network Engine: TCP NoDelay, 0-Tick ACK & CTCP/BBR congestion provider with hardware RSS enabled.\n- Hardware CPU Power Governor: Full PROCTHROTTLEMIN/MAX, CPMINCORES, and EPP dual-pipeline execution for massive responsiveness and cooling.\n- DirectX 11/12 Driver Pipeline & Hardware Independent Flip optimizations.",
     "publishDate": "2026-08-21",
-    "version": "8.15.8",
-    "downloadUrl": "https://github.com/Vomitted/OmniControl/releases/download/v8.15.8/OmniControlSuite.exe"
+    "version": "8.15.9",
+    "downloadUrl": "https://github.com/Vomitted/OmniControl/releases/download/v8.15.9/OmniControlSuite.exe"
 }
