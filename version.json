@@ -1,6 +1,6 @@
 {
-    "releaseNotes": "OmniControl Suite v8.12.6 - Deep Thermal & CPU Usage Elimination:\n- Fixed PowerBudgetOptimizer forcing Aggressive Turbo (2) during heavy loads; strictly enforces TempTamer.\n- Added full state caching for PROCTHROTTLEMAX and power settings to eliminate redundant PowerSetActiveScheme polling storms.\n- Reduces background idle CPU usage of OmniControl Suite and Windows Kernel to <0.1%.\n- Eliminates DPC interrupt churn and power governor oscillations.",
+    "releaseNotes": "OmniControl Suite v8.12.7 - Advanced CPU & Thermal Deep-Fix Engine:\n- Windows 11 EcoQoS Background Throttler actively clamps non-focused electron/media apps (Discord, Spotify, Steam, Edge WebView) to efficiency micro-ops.\n- Integrated Windows telemetry & DiagTrack neutralizer to halt continuous background CPU wakeups.\n- Full DirectX iGPU routing for 46+ shell and background processes so NVIDIA RTX 4060 can sleep in D3Cold (0.0W).\n- Audiodg Pro-Audio MMCSS affinity & priority locking (Cores 0-1) to eliminate audio packet DPC latency and multicore interrupts.",
     "publishDate": "2026-08-20",
-    "version": "8.12.6",
-    "downloadUrl": "https://github.com/Vomitted/OmniControl/releases/download/v8.12.6/OmniControlSuite.exe"
+    "version": "8.12.7",
+    "downloadUrl": "https://github.com/Vomitted/OmniControl/releases/download/v8.12.7/OmniControlSuite.exe"
 }
