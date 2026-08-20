@@ -1,6 +1,6 @@
 {
-    "releaseNotes": "OmniControl Suite v8.12.0 - Ultimate Thermal, Acoustic & Boot Fix:\n- VoltMaster AI strictly respects TempTamer across all gaming & creative modes.\n- Permanent resolution for CPU voltage/thermal spikes (Ryzen 5 8645HS locked sub-1.1V at ~4.3 GHz base).\n- Acoustic Safe 70% Max Fan Ceiling (eliminates 5800 RPM bearing vibration and screeching noises).\n- Instant zero-delay startup taming & automatic termination of orphaned background instances.",
+    "releaseNotes": "OmniControl Suite v8.12.1 - EcoQoS Background Throttling & Proactive Anti-Heat:\n- Windows 11 EcoQoS Efficiency Mode integration for background apps (browsers, Discord, Spotify).\n- Lowered thermal setpoints for proactive gentle airflow cooling (prevents heatsink heatsoak).\n- Automatic idle core parking and CPPC2 dynamic voltage scaling.\n- Strict TempTamer enforcement across all 3D and gaming contexts.",
     "publishDate": "2026-08-20",
-    "version": "8.12.0",
-    "downloadUrl": "https://github.com/Vomitted/OmniControl/releases/download/v8.12.0/OmniControlSuite.exe"
+    "version": "8.12.1",
+    "downloadUrl": "https://github.com/Vomitted/OmniControl/releases/download/v8.12.1/OmniControlSuite.exe"
 }
