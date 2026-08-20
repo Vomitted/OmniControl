@@ -1,6 +1,6 @@
 {
-    "releaseNotes": "OmniControl Suite v8.15.9 - Ultimate Performance Overhaul:\n- Zero Input Lag 2.0: Hardware MMIO NtSetTimerResolution native 0.5ms (500us) precision timer lock + Realtime GPU scheduling.\n- Zero-Jitter Network Engine: TCP NoDelay, 0-Tick ACK & CTCP/BBR congestion provider with hardware RSS enabled.\n- Hardware CPU Power Governor: Full PROCTHROTTLEMIN/MAX, CPMINCORES, and EPP dual-pipeline execution for massive responsiveness and cooling.\n- DirectX 11/12 Driver Pipeline & Hardware Independent Flip optimizations.",
+    "releaseNotes": "OmniControl Suite v8.16.0 - Auto-GPU Power Suite & Battery Diagnostics Fix:\n- Auto-GPU Hardware Switching Fix: Intercepts WM_POWERBROADCAST (0x0218) AC/Battery kernel interrupts for instant, seamless dGPU sleep/wake.\n- Battery Status & Health Fix: Corrected HasBat telemetry population so live battery status, wattage, and wear level display accurately.\n- True D3Cold GPU Power Gating: Clean PnP device disabling puts RTX 4060 into true 0.0W sleep on battery, instantly waking to 144Hz on AC charger.",
     "publishDate": "2026-08-21",
-    "version": "8.15.9",
-    "downloadUrl": "https://github.com/Vomitted/OmniControl/releases/download/v8.15.9/OmniControlSuite.exe"
+    "version": "8.16.0",
+    "downloadUrl": "https://github.com/Vomitted/OmniControl/releases/download/v8.16.0/OmniControlSuite.exe"
 }
