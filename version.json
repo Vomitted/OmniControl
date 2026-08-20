@@ -1,6 +1,6 @@
 {
-    "releaseNotes": "OmniControl Suite v8.13.6 - Instant Launch & Stability Hotfix:\n- Resolved startup null reference issue in navigation event wiring.\n- Verified clean and instant process launch.\n- Preserved complete UI overhaul, accurate tab indicators, and zero-overlap layout.",
+    "releaseNotes": "OmniControl Suite v8.13.7 - Desktop Launch & Startup Guard:\n- Fixed single-instance global mutex exception when launching across different integrity levels.\n- Added comprehensive desktop crash logging and dialog reporting.\n- Fully verified clean launch and responsive UI initialization.",
     "publishDate": "2026-08-20",
-    "version": "8.13.6",
-    "downloadUrl": "https://github.com/Vomitted/OmniControl/releases/download/v8.13.6/OmniControlSuite.exe"
+    "version": "8.13.7",
+    "downloadUrl": "https://github.com/Vomitted/OmniControl/releases/download/v8.13.7/OmniControlSuite.exe"
 }
