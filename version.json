@@ -1,6 +1,6 @@
 {
-    "releaseNotes": "OmniControl Suite v8.12.8 - Idle Thermal Overhaul & Active Cooling Fix:\n- Eliminated HP BIOS/EC Quiet mode 0 RPM heat-soak bug where fans were halted until 70C+.\n- Engages proactive gentle whisper cooling (~1600-2000 RPM) at idle to maintain cool 38-45C baseline.\n- Clamps CPU to sub-1.0V base clock with EPP 80 during idle/desktop use.\n- Fully unhooks background shell and electron apps from NVIDIA RTX 4060 dGPU.",
+    "releaseNotes": "OmniControl Suite v8.12.9 - Direct 40-50C Idle Thermal Lock:\n- Enforced TempTamer active state in registry and app startup (disables aggressive 1.45V turbo boost at idle).\n- Locked CPU to cool sub-1.0V base clock with EPP 80.\n- Engaged proactive whisper fan cooling (~1600-1900 RPM) to keep idle temperatures at 40-48C.\n- Routed all background/electron apps to AMD iGPU to eliminate 16.8W dGPU idle heat soak.",
     "publishDate": "2026-08-20",
-    "version": "8.12.8",
-    "downloadUrl": "https://github.com/Vomitted/OmniControl/releases/download/v8.12.8/OmniControlSuite.exe"
+    "version": "8.12.9",
+    "downloadUrl": "https://github.com/Vomitted/OmniControl/releases/download/v8.12.9/OmniControlSuite.exe"
 }
