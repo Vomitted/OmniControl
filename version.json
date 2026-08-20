@@ -1,6 +1,6 @@
 {
-    "releaseNotes": "OmniControl Suite v8.13.4 - Complete Bloat Removal & Lightweight Overhaul:\n- Removed 13 unusable/placebo cards across Gaming, Network, and System tabs (Ping test, TCP registry, SMART drive, DDA, DWM bypass, Power budget churn).\n- Streamlined Gaming & GPU to 6 essential hardware tools (OptiRouter AI, Game Focus EcoQoS, UXTU Safeguard, OEM Bloatware Neutralizer, NVAPI Sliders, GPU Telemetry).\n- Streamlined System Tools to Storage/Shader Cleaner and Startup Manager.\n- Fixed all background CPU thread allocation for ultra-lightweight <0.1% idle operation.",
+    "releaseNotes": "OmniControl Suite v8.13.5 - Complete UI Overhaul & Sidebar Alignment:\n- Fixed sidebar tab selection indicator so the glowing accent pill and vertical indicator highlight 100% accurately across all 6 main categories.\n- Added dedicated 'Display & Power' sidebar navigation tab for instant access to D3Cold 0.0W GPU sleep, refresh rate, and battery limiter.\n- Resolved all subcategory navigation button mismatches and eliminated card overlapping across all views.\n- Cleaned all layout margins and padding for flawless Windows 11 Fluent glass aesthetic.\n- Verified all 100% functional hardware controls.",
     "publishDate": "2026-08-20",
-    "version": "8.13.4",
-    "downloadUrl": "https://github.com/Vomitted/OmniControl/releases/download/v8.13.4/OmniControlSuite.exe"
+    "version": "8.13.5",
+    "downloadUrl": "https://github.com/Vomitted/OmniControl/releases/download/v8.13.5/OmniControlSuite.exe"
 }
