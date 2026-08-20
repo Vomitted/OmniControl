@@ -1,6 +1,6 @@
 {
-    "releaseNotes": "OmniControl Suite v8.15.5 - All Views & Features Unified:\n- Gaming & GPU: All 12 performance cards (Tri-Pillar Accelerator, Direct DWM Bypass, DirectX Pipeline Optimizer, Priority Gating, Power Budget, SMT Core Parking, UXTU Safeguard, DPC Watchdog, Native Architecture, NVAPI Sliders, Telemetry Log) now seamlessly visible and navigable.\n- System Tools: Integrated Network Latency Ping Benchmark, Low-Latency DNS Switcher, and TCP Gaming Optimizer into dedicated subcategories.\n- Settings & Logs: Fully wired Live Rolling 5-Minute Telemetry History across all 6 hardware channels.",
+    "releaseNotes": "OmniControl Suite v8.15.6 - Essential Gaming & GPU Suite Restoration:\n- Restored all 11 performance & architecture engines in Category 1: Essential Gaming & GPU (Tri-Pillar Accelerator, OptiRouter AI, Game Focus Mode, Direct DWM Bypass, Micro-Thread Priority Gating, DirectX Pipeline Optimizer, Power Budget Rebalancer, SMT Core Parking, UXTU Safeguard, DPC Watchdog, Native Architecture).\n- Seamless multi-card layout with dynamic vertical auto-scrolling and clean subcategory switching.",
     "publishDate": "2026-08-20",
-    "version": "8.15.5",
-    "downloadUrl": "https://github.com/Vomitted/OmniControl/releases/download/v8.15.5/OmniControlSuite.exe"
+    "version": "8.15.6",
+    "downloadUrl": "https://github.com/Vomitted/OmniControl/releases/download/v8.15.6/OmniControlSuite.exe"
 }
