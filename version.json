@@ -1,6 +1,6 @@
 {
-    "releaseNotes": "OmniControl Suite v8.13.7 - Desktop Launch & Startup Guard:\n- Fixed single-instance global mutex exception when launching across different integrity levels.\n- Added comprehensive desktop crash logging and dialog reporting.\n- Fully verified clean launch and responsive UI initialization.",
+    "releaseNotes": "OmniControl Suite v8.13.8 - Complete Startup & Subcategory Fix:\n- Fixed NullReferenceException in SelectCleanSubCategory on startup.\n- All subcategory selectors across Gaming, Fans, Clean, and Settings now fully guarded against null references.\n- Desktop binary updated directly.",
     "publishDate": "2026-08-20",
-    "version": "8.13.7",
-    "downloadUrl": "https://github.com/Vomitted/OmniControl/releases/download/v8.13.7/OmniControlSuite.exe"
+    "version": "8.13.8",
+    "downloadUrl": "https://github.com/Vomitted/OmniControl/releases/download/v8.13.8/OmniControlSuite.exe"
 }
