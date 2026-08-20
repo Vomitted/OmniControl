@@ -1,6 +1,6 @@
 {
-    "releaseNotes": "OmniControl Suite v8.15.2 - Battery & dGPU Telemetry Polish:\n- Fixed Battery status reporting: Correctly tracks battery percentage, AC/Discharge status, and watt-hour metrics with zero BAT N/A.\n- Explicit dGPU labeling in status bar and Dashboard ring gauges (dGPU % vs D3Cold 0.0W Sleep vs iGPU).\n- Responsive GPU telemetry polling on both AC and active battery gaming.",
+    "releaseNotes": "OmniControl Suite v8.15.3 - Master Telemetry & UX Optimization:\n- Dashboard Ring Gauges: Explicit dGPU RTX 4060 branding, live VRAM & 0.0W D3Cold status, and charge/discharge sub-labels.\n- Refined Tray Context Menu: Clean, professional labels for presets, AI fan modes, In-Game HUD, and RAM cleaner.\n- Clean button typography and synchronized performance indicators across all views.",
     "publishDate": "2026-08-20",
-    "version": "8.15.2",
-    "downloadUrl": "https://github.com/Vomitted/OmniControl/releases/download/v8.15.2/OmniControlSuite.exe"
+    "version": "8.15.3",
+    "downloadUrl": "https://github.com/Vomitted/OmniControl/releases/download/v8.15.3/OmniControlSuite.exe"
 }
