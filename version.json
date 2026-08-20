@@ -1,6 +1,6 @@
 {
-    "releaseNotes": "OmniControl Suite v8.13.0 - UI Streamlining & Unusable Feature Removal:\n- Removed non-functional DirectX Desktop Duplication (DDA) Optical Flow Interpolator.\n- Removed placebo Resolution & FSR/NIS spatial scaling cards and unnecessary battery popups.\n- Cleaned up Gaming & GPU sub-categories into a streamlined, high-performance interface.\n- Fully maintained TempTamer 40-50°C idle thermal locking and OptiRouter AI.",
+    "releaseNotes": "OmniControl Suite v8.13.1 - Full Cooling System & AI Fan Overhaul:\n- Synchronized all cooling profiles (AI Smart, Max Turbo, Silent Whisper, Auto) directly with HP WMI BIOS registers.\n- Fixed RPM telemetry calculation so tachometer gauges, percentages, and duty cycles match applied fan modes in real-time.\n- Unlocked full 100% PWM Turbo Mode (~5,400 RPM) for Max Fan mode.\n- Enhanced AI Cooling Governor with proactive predictive PID scaling and whisper idle floor (~1,650 RPM).",
     "publishDate": "2026-08-20",
-    "version": "8.13.0",
-    "downloadUrl": "https://github.com/Vomitted/OmniControl/releases/download/v8.13.0/OmniControlSuite.exe"
+    "version": "8.13.1",
+    "downloadUrl": "https://github.com/Vomitted/OmniControl/releases/download/v8.13.1/OmniControlSuite.exe"
 }
