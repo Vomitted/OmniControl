@@ -1,6 +1,6 @@
 {
-    "releaseNotes": "OmniControl Suite v8.12.5 - OptiRouter AI Restoration & Integration:\n- Restored OptiRouter AI directly inside the 'Gaming & GPU' master hub under sub-category 1 (Gaming & GPU) and All Tools.\n- Dedicated 'MANAGE APP ROUTING RULES' and 'AUTO-OPTIMIZE ALL INSTALLED APPS' buttons.\n- Full support for adding custom .exe paths and assigning DirectX GPU preferences (dGPU vs iGPU).\n- Zero layout overlap and persistent UXTU safeguards.",
+    "releaseNotes": "OmniControl Suite v8.12.6 - Deep Thermal & CPU Usage Elimination:\n- Fixed PowerBudgetOptimizer forcing Aggressive Turbo (2) during heavy loads; strictly enforces TempTamer.\n- Added full state caching for PROCTHROTTLEMAX and power settings to eliminate redundant PowerSetActiveScheme polling storms.\n- Reduces background idle CPU usage of OmniControl Suite and Windows Kernel to <0.1%.\n- Eliminates DPC interrupt churn and power governor oscillations.",
     "publishDate": "2026-08-20",
-    "version": "8.12.5",
-    "downloadUrl": "https://github.com/Vomitted/OmniControl/releases/download/v8.12.5/OmniControlSuite.exe"
+    "version": "8.12.6",
+    "downloadUrl": "https://github.com/Vomitted/OmniControl/releases/download/v8.12.6/OmniControlSuite.exe"
 }
