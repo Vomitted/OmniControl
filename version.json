@@ -1,6 +1,6 @@
 {
-    "releaseNotes": "OmniControl Suite v8.12.4 - Persistent UXTU Safeguard & Startup Indication:\n- Fully persists UXTU / Undervolt Safeguard toggle state across app restarts.\n- Instant startup hardware scan with clear visual notification when UXTU / Afterburner is detected.\n- Real-time status badge and zero-collision layout.",
+    "releaseNotes": "OmniControl Suite v8.12.5 - OptiRouter AI Restoration & Integration:\n- Restored OptiRouter AI directly inside the 'Gaming & GPU' master hub under sub-category 1 (Gaming & GPU) and All Tools.\n- Dedicated 'MANAGE APP ROUTING RULES' and 'AUTO-OPTIMIZE ALL INSTALLED APPS' buttons.\n- Full support for adding custom .exe paths and assigning DirectX GPU preferences (dGPU vs iGPU).\n- Zero layout overlap and persistent UXTU safeguards.",
     "publishDate": "2026-08-20",
-    "version": "8.12.4",
-    "downloadUrl": "https://github.com/Vomitted/OmniControl/releases/download/v8.12.4/OmniControlSuite.exe"
+    "version": "8.12.5",
+    "downloadUrl": "https://github.com/Vomitted/OmniControl/releases/download/v8.12.5/OmniControlSuite.exe"
 }
