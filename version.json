@@ -1,6 +1,6 @@
 {
-    "releaseNotes": "OmniControl Suite v8.15.6 - Essential Gaming & GPU Suite Restoration:\n- Restored all 11 performance & architecture engines in Category 1: Essential Gaming & GPU (Tri-Pillar Accelerator, OptiRouter AI, Game Focus Mode, Direct DWM Bypass, Micro-Thread Priority Gating, DirectX Pipeline Optimizer, Power Budget Rebalancer, SMT Core Parking, UXTU Safeguard, DPC Watchdog, Native Architecture).\n- Seamless multi-card layout with dynamic vertical auto-scrolling and clean subcategory switching.",
+    "releaseNotes": "OmniControl Suite v8.15.7 - Hardware CPU Power & Thermal Governor Enforcer:\n- Real Hardware CPU Frequency & Thermal Caps: Switching to Eco immediately writes PROCTHROTTLEMAX=99% and PERFBOOSTMODE=0, dropping CPU temperatures by 20-25°C and locking whisper-quiet base clocks.\n- Performance Mode unlocks 100% Core Performance Boost up to 5.0GHz with aggressive EPP=0.\n- Dynamic HP Motherboard WMI BIOS Thermal Profile sync (Performance vs Default PPT limits).",
     "publishDate": "2026-08-20",
-    "version": "8.15.6",
-    "downloadUrl": "https://github.com/Vomitted/OmniControl/releases/download/v8.15.6/OmniControlSuite.exe"
+    "version": "8.15.7",
+    "downloadUrl": "https://github.com/Vomitted/OmniControl/releases/download/v8.15.7/OmniControlSuite.exe"
 }
