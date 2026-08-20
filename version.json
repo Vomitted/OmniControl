@@ -1,6 +1,6 @@
 {
-    "releaseNotes": "OmniControl Suite v8.14.2 - Seamless Travel Eco & Popup Removal:\n- Removed intrusive 'NVIDIA GPU settings have been reset' popup dialog when activating Travel Eco or switching presets.\n- Seamless, non-disruptive preset switching with sleek toast notifications.\n- Preserved display refresh rate switching and D3Cold 0.0W GPU sleep.",
+    "releaseNotes": "OmniControl Suite v8.14.3 - Full ToolTip Explanations & AI Mesh Polish:\n- Fixed ToolTip text clipping with dynamic multi-line text measurement (TextFormatFlags.WordBreak).\n- Full, rich explanations now visible for every feature, toggle, card, and slider across the entire app.\n- Further refined OmniNeural multi-agent autonomous mesh and power/thermal responsiveness.",
     "publishDate": "2026-08-20",
-    "version": "8.14.2",
-    "downloadUrl": "https://github.com/Vomitted/OmniControl/releases/download/v8.14.2/OmniControlSuite.exe"
+    "version": "8.14.3",
+    "downloadUrl": "https://github.com/Vomitted/OmniControl/releases/download/v8.14.3/OmniControlSuite.exe"
 }
