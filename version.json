@@ -1,6 +1,1 @@
-{
-    "releaseNotes": "OmniControl Suite v8.16.6 - Immediate On-Screen Window Visibility & Fix Premature Handle Allocation:\n- Fixed Premature Handle Creation: Removed RegisterHotKey from constructor which was forcing Win32 handle creation before Application.Run, causing WinForms to think the window should be hidden.\n- Added OnLoad & OnShown explicit Visibility & BringToFront guarantees.\n- System Tray single-click & double-click immediate show/restore.\n- Full 6 Google Stitch OLED Neon Precision tabs intact.",
-    "publishDate": "2026-08-24",
-    "version": "8.16.6",
-    "downloadUrl": "https://github.com/Vomitted/OmniControl/releases/download/v8.16.6/OmniControlSuite.exe"
-}
+{"releaseNotes":"OmniControl Suite v8.16.7 - Fixed static Win32 field initializer causing invisible window","publishDate":"2026-08-24","version":"8.16.7","downloadUrl":"https://github.com/Vomitted/OmniControl/releases/download/v8.16.7/OmniControlSuite.exe"}
