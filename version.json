@@ -1,6 +1,6 @@
 {
-    "releaseNotes": "OmniControl Suite v8.16.2 - Complete UI Layout & Fully Populated Google Stitch Dashboard:\n- Populated all 6 tabs with complete control cards, advanced subcategories, and telemetry diagnostics.\n- Gaming & GPU Suite: Full interactive cards for OptiRouter AI, Zero Input Lag 2.0 (0.5ms lock), Direct DWM Bypass, DirectX 11/12 Optimizer, and Dynamic Power Budget.\n- Display & Power: Full cards for D3Cold GPU Gate, 144Hz/60Hz Refresh Rate, Auto-GPU Suite, ACPI Battery Health, and BIOS Charge Limiter.\n- Fans & Thermals: AI Smart Mode, CPU Power Plan Governor, Temp Tamer (Instant 20°C drop), and Acoustic Telemetry.\n- System Tools: Deep Clean, Shader Cache Purge, Zero-Jitter TCP Network Stack, and Bloatware Optimizer.\n- Settings: Elevated Task Scheduler startup, Google Stitch OLED Neon Precision theme, and In-Game HUD.",
+    "releaseNotes": "OmniControl Suite v8.16.3 - Instant Foreground Window Activation & Tray Fix:\n- Window Visibility & Activation: Fixed single-instance mutex blocking foreground launch, added WM_SHOW_SUITE IPC broadcast and WS_MINIMIZEBOX window styling for instant on-screen popup.\n- Tray Interaction: Single-click and double-click on system tray icon now immediately brings the main dashboard to the front and activates it.\n- Fully populated all 6 tabs with Google Stitch OLED Neon Precision styling.",
     "publishDate": "2026-08-24",
-    "version": "8.16.2",
-    "downloadUrl": "https://github.com/Vomitted/OmniControl/releases/download/v8.16.2/OmniControlSuite.exe"
+    "version": "8.16.3",
+    "downloadUrl": "https://github.com/Vomitted/OmniControl/releases/download/v8.16.3/OmniControlSuite.exe"
 }
