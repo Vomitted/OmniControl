@@ -1,0 +1,79 @@
+using System.Windows;
+using Application = System.Windows.Application;
+using Window = System.Windows.Window;
+
+namespace OmniHub.App.Wpf;
+
+public sealed record ThemeDefinition(string Id, string DisplayName, string Description, string Source);
+
+/// <summary>
+/// Swaps the active colour palette at runtime.
+///
+/// How this works: every brush in Theme.xaml binds its Color with {DynamicResource}, not
+/// {StaticResource}. A StaticResource is resolved once when the dictionary loads and then
+/// baked in, which is why a single-file theme cannot be changed without restarting.
+/// DynamicResource keeps the lookup live, so replacing the palette dictionary re-tints every
+/// brush -- and therefore every control bound to those brushes -- in place, with no rebuild
+/// of the visual tree and no restart.
+///
+/// Palettes deliberately contain ONLY colours. Fonts, radii and the brush definitions stay
+/// in Theme.xaml, so adding a theme is a short list of colour values and cannot accidentally
+/// redefine a control's geometry.
+/// </summary>
+public static class ThemeManager
+{
+    public static readonly IReadOnlyList<ThemeDefinition> All = new[]
+    {
+        new ThemeDefinition("OledBlack", "OLED Black", "True #000000. Pixels off on an OLED panel.",
+            "Wpf/Palettes/OledBlack.xaml"),
+        new ThemeDefinition("Midnight", "Midnight", "Deep blue-black. Kinder to an IPS panel.",
+            "Wpf/Palettes/Midnight.xaml"),
+        new ThemeDefinition("Graphite", "Graphite", "Neutral grey. Readings are the only colour.",
+            "Wpf/Palettes/Graphite.xaml"),
+        new ThemeDefinition("Ember", "Ember", "Warm black with a copper accent.",
+            "Wpf/Palettes/Ember.xaml"),
+    };
+
+    public const string DefaultId = "OledBlack";
+
+    public static ThemeDefinition Current { get; private set; } = All[0];
+
+    /// <summary>Raised after the palette is swapped, so windows can repaint their frames.</summary>
+    public static event Action<ThemeDefinition>? ThemeChanged;
+
+    public static ThemeDefinition Resolve(string? id) =>
+        All.FirstOrDefault(t => string.Equals(t.Id, id, StringComparison.OrdinalIgnoreCase)) ?? All[0];
+
+    public static void Apply(string? id)
+    {
+        var theme = Resolve(id);
+        var dict = new ResourceDictionary { Source = new Uri(theme.Source, UriKind.Relative) };
+
+        var merged = Application.Current.Resources.MergedDictionaries;
+
+        // Identify the outgoing palette by a key only palettes define, rather than by index.
+        // Index-based removal breaks as soon as anything else is merged in, and silently
+        // leaving two palettes merged means the last one wins in ways that are hard to trace.
+        var existing = merged.FirstOrDefault(d => d.Contains("CardTopHighlightColor"));
+
+        // Insert before removing: with DynamicResource, a moment where no dictionary supplies
+        // the colour keys would resolve to nothing and flash the WPF defaults.
+        merged.Insert(0, dict);
+        if (existing is not null) merged.Remove(existing);
+
+        Current = theme;
+        ThemeChanged?.Invoke(theme);
+    }
+
+    /// <summary>Repaints a window's OS-drawn frame to match the active palette.</summary>
+    public static void ApplyToWindowFrame(Window window)
+    {
+        var caption = LookupColor("CaptionColor", Colors.Black);
+        var text = LookupColor("CaptionTextColor", Colors.White);
+        var border = LookupColor("BorderColor", Colors.Black);
+        DwmTheme.Apply(window, caption, text, border);
+    }
+
+    private static Color LookupColor(string key, Color fallback) =>
+        Application.Current.TryFindResource(key) is Color c ? c : fallback;
+}

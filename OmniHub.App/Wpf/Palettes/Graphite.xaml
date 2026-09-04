@@ -1,0 +1,38 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- GRAPHITE. Neutral grey, no colour cast in the chrome at all. The most restrained
+         of the set: with every surface desaturated and even the accent achromatic, the
+         only chromatic thing on screen is a live reading, so the thermal scale reads
+         harder here than in any other theme. -->
+
+    <Color x:Key="BackgroundColor">#FF121212</Color>
+    <Color x:Key="PanelColor">#FF1B1B1B</Color>
+    <Color x:Key="PanelAltColor">#FF232323</Color>
+    <Color x:Key="PanelHoverColor">#FF2C2C2C</Color>
+    <Color x:Key="BorderColor">#FF303030</Color>
+    <Color x:Key="BorderStrongColor">#FF454545</Color>
+
+    <Color x:Key="TextPrimaryColor">#FFEDEDED</Color>
+    <Color x:Key="TextMutedColor">#FF949494</Color>
+    <Color x:Key="TextFaintColor">#FF636363</Color>
+
+    <Color x:Key="AccentColor">#FFE8E8E8</Color>
+    <Color x:Key="AccentDimColor">#38E8E8E8</Color>
+    <Color x:Key="AccentSoftColor">#16E8E8E8</Color>
+
+    <Color x:Key="GoodColor">#FF5BBF88</Color>
+    <Color x:Key="WarnColor">#FFD9A441</Color>
+    <Color x:Key="DangerColor">#FFDF6152</Color>
+    <!-- Per-metric card accents; see OledBlack.xaml for the rationale. -->
+    <Color x:Key="MetricCpuColor">#FFD4D4D4</Color>
+    <Color x:Key="MetricMemColor">#FF5BBF88</Color>
+    <Color x:Key="MetricGpuColor">#FF9CA3AF</Color>
+
+    <Color x:Key="CardTopHighlightColor">#12FFFFFF</Color>
+    <Color x:Key="GridLineColor">#FF242424</Color>
+
+    <Color x:Key="CaptionColor">#FF121212</Color>
+    <Color x:Key="CaptionTextColor">#FFEDEDED</Color>
+
+</ResourceDictionary>

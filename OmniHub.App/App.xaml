@@ -1,0 +1,18 @@
+<Application x:Class="OmniHub.App.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             ShutdownMode="OnExplicitShutdown">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- Palette first: Theme.xaml's brushes bind their colours with
+                     DynamicResource, so a palette must already be present. This is the
+                     startup default; ThemeManager replaces it with the saved theme once
+                     settings are read, and again whenever the user picks another. -->
+                <ResourceDictionary Source="Wpf/Palettes/OledBlack.xaml"/>
+                <ResourceDictionary Source="Wpf/Theme.xaml"/>
+                <ResourceDictionary Source="Wpf/Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
