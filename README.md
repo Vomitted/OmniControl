@@ -45,23 +45,117 @@ behind one availability check, so a second backend can slot in beside the HP
 one — but none is shipped unverified, because untested code that writes to
 unknown ACPI methods on someone's laptop should not exist.
 
-## Requirements
+## Installing
 
-- Windows 10/11. Full functionality needs an HP laptop exposing the
-  `hpqBIntM` BIOS WMI interface (Omen and Victus models); everything else
-  degrades gracefully.
-- .NET 8 SDK to build.
-- Administrator privileges to run -- the BIOS calls require an elevated WMI
-  session. `app.manifest` requests this automatically (UAC prompt on launch).
+There is no prebuilt download yet, so installing means building it once. It
+takes about five minutes and you only do it once per machine.
 
-## Building and running
+**Before you start:** Windows 10 or 11, and about 1 GB free for the .NET SDK.
+OmniHub runs on any laptop; how much of it is *usable* depends on your
+hardware — see [Compatibility](#compatibility) above.
+
+### 1. Install the .NET SDK
+
+In PowerShell or Terminal:
 
 ```
-dotnet build OmniHub.slnx
-dotnet run --project OmniHub.App
+winget install Microsoft.DotNet.SDK.10
 ```
 
-Or open `OmniHub.slnx` in Visual Studio 2022+ and run `OmniHub.App`.
+Close and reopen the terminal afterwards so `dotnet` is on your PATH. Check it:
+
+```
+dotnet --version
+```
+
+The app targets `net8.0-windows`, but install the **current** SDK, not the 8.0
+one: the solution file is `.slnx`, a newer format the .NET 8 SDK cannot parse.
+A current SDK builds `net8.0` targets perfectly well. If you already have only
+the 8.0 SDK and would rather not add another, skip the solution and build the
+project directly in step 3.
+
+### 2. Get the source
+
+```
+git clone https://github.com/Vomitted/OmniHub.git
+cd OmniHub
+```
+
+No git? Download the ZIP from the repository's green **Code** button, extract
+it, and `cd` into the extracted folder.
+
+### 3. Build it
+
+```
+dotnet build OmniHub.slnx -c Release
+```
+
+On the .NET 8 SDK, build the project instead — same result, no `.slnx`:
+
+```
+dotnet build OmniHub.App\OmniHub.App.csproj -c Release
+```
+
+Expect `Build succeeded` with 0 errors. The app lands at:
+
+```
+OmniHub.App\bin\Release\net8.0-windows\OmniHub.exe
+```
+
+### 4. Run it as administrator
+
+Double-click `OmniHub.exe` and accept the UAC prompt.
+
+**The prompt is not optional.** Fan and BIOS control go through an elevated
+WMI session, and the SMU driver refuses unelevated callers. `app.manifest`
+requests elevation automatically, so you will always see the prompt — if you
+launch it some other way and skip elevation, the hardware panels will report
+themselves unavailable.
+
+Make a desktop shortcut to that `.exe` if you want it handy.
+
+### 5. Install PawnIO, for CPU tuning (optional)
+
+Only needed for the Tuning tab: power limits, thermal limit, die temperature
+and adaptive mode. Everything else works without it.
+
+Easiest way: launch OmniHub and click **Install the PawnIO driver** on the
+dashboard — it appears only if the driver is missing. Or do it yourself:
+
+```
+winget install namazso.PawnIO
+```
+
+No restart needed either way. OmniHub retries the driver every ten seconds
+while it is missing, so tuning comes online on its own once it registers.
+
+### 6. Start it with Windows (recommended)
+
+Open the **Settings** tab and turn on **Launch when you sign in**.
+
+This matters more than it sounds: with OmniHub closed, your fans are back on
+the stock BIOS curve, including the 0%-while-hot behaviour described above.
+It uses a Task Scheduler entry rather than a registry Run key, because the app
+needs Administrator and a Run key will not reliably auto-elevate.
+
+There is also **Start hidden in the tray** next to it, if you would rather it
+came up as just a tray icon. Everything still applies at launch either way.
+
+### Something missing?
+
+The dashboard tells you. If a capability is unavailable on your machine, a
+panel at the top names which one and why — a missing vendor interface, no SMU
+driver, no NVIDIA GPU. It stays hidden when everything is present.
+
+### Updating later
+
+```
+git pull
+dotnet build OmniHub.slnx -c Release
+```
+
+Your settings live in `%AppData%\OmniHub\settings.json` and are untouched by a
+rebuild.
 
 ### First run on a new laptop model
 
