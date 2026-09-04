@@ -1,0 +1,66 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Platforms>x64</Platforms>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <AssemblyName>OmniHub</AssemblyName>
+    <RootNamespace>OmniHub.App</RootNamespace>
+    <Version>1.0.0</Version>
+    <UseWindowsForms>true</UseWindowsForms>
+    <UseWPF>true</UseWPF>
+    <ApplicationHighDpiMode>PerMonitorV2</ApplicationHighDpiMode>
+    <ApplicationIcon>app.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OmniHub.Core\OmniHub.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- This project sets BOTH UseWindowsForms and UseWPF (WinForms is needed only for the
+         tray icon), so several type names exist in both stacks and a bare reference is
+         ambiguous. That has broken the build three separate times (Color twice, Brush once),
+         each patched with a one-off file-level alias.
+
+         Declaring the aliases globally fixes the class of bug rather than the instance: a new
+         file gets the WPF meaning by default and cannot compile against the WinForms type by
+         accident.
+
+         Note that a file-level alias does NOT shadow a global one, it collides with it
+         (CS1537), so the per-file declarations these replace have been removed rather than
+         left in place. Adding an alias here means deleting any local duplicate. -->
+    <Using Include="System.Windows.Media.Brush" Alias="Brush" />
+    <Using Include="System.Windows.Media.Color" Alias="Color" />
+    <Using Include="System.Windows.Media.Colors" Alias="Colors" />
+    <Using Include="System.Windows.Media.SolidColorBrush" Alias="SolidColorBrush" />
+    <Using Include="System.Windows.Media.FontFamily" Alias="FontFamily" />
+    <Using Include="System.Windows.Point" Alias="Point" />
+    <Using Include="System.Windows.Size" Alias="Size" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- ApplicationIcon (above) only sets the EXE's own icon; Window.Icon="/app.ico"
+         in XAML needs the file separately registered as a WPF pack resource. -->
+    <Resource Include="app.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- PawnIO bytecode modules, shipped beside the exe so SMU access does not depend on
+         another application being installed.
+
+         RyzenSmu.ResolveModulePath already probes Assets\PawnIO first and only then falls
+         back to UXTU's install directory, so a module dropped here takes precedence. That
+         fallback stopped being theoretical: UXTU's install was reduced to its GameImages
+         folder at some point, the module went with it, and the whole Tuning tab went dark
+         because OmniHub was reading a file it did not own.
+
+         Modules are LGPL-2.1-or-later from namazso/PawnIO.Modules. Keep the licence notice
+         beside them; redistribution is fine, dropping the notice is not. -->
+    <Content Include="Assets\PawnIO\**\*" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+</Project>

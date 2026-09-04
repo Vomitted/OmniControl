@@ -1,0 +1,96 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- ============================================================
+         OmniHub theme: instrument panel, not a gaming skin.
+
+         Colour VALUES no longer live here. They live in Wpf/Palettes/*.xaml, one file
+         per theme, and ThemeManager swaps which one is merged. This file defines the
+         brushes, fonts and geometry that every theme shares.
+
+         Every brush below binds its Color with {DynamicResource}, never {StaticResource}.
+         That is the whole mechanism behind live theme switching: a StaticResource is
+         resolved once at load and baked in, so the app would need a restart; a
+         DynamicResource keeps the lookup live, so swapping the palette re-tints every
+         control in place.
+
+         The rule the palettes are built around: COLOUR MEANS STATE. Green/amber/red
+         belong to real readings and are applied at runtime from live values. Chrome
+         stays neutral, so when something does go red it is the only red on screen.
+         ============================================================ -->
+
+    <SolidColorBrush x:Key="BackgroundBrush" Color="{DynamicResource BackgroundColor}"/>
+    <SolidColorBrush x:Key="PanelBrush" Color="{DynamicResource PanelColor}"/>
+    <SolidColorBrush x:Key="PanelAltBrush" Color="{DynamicResource PanelAltColor}"/>
+    <SolidColorBrush x:Key="PanelHoverBrush" Color="{DynamicResource PanelHoverColor}"/>
+    <SolidColorBrush x:Key="BorderBrush" Color="{DynamicResource BorderColor}"/>
+    <SolidColorBrush x:Key="BorderStrongBrush" Color="{DynamicResource BorderStrongColor}"/>
+    <SolidColorBrush x:Key="TextPrimaryBrush" Color="{DynamicResource TextPrimaryColor}"/>
+    <SolidColorBrush x:Key="TextMutedBrush" Color="{DynamicResource TextMutedColor}"/>
+    <SolidColorBrush x:Key="TextFaintBrush" Color="{DynamicResource TextFaintColor}"/>
+    <SolidColorBrush x:Key="AccentBrush" Color="{DynamicResource AccentColor}"/>
+    <SolidColorBrush x:Key="AccentDimBrush" Color="{DynamicResource AccentDimColor}"/>
+    <SolidColorBrush x:Key="AccentSoftBrush" Color="{DynamicResource AccentSoftColor}"/>
+    <SolidColorBrush x:Key="WarnBrush" Color="{DynamicResource WarnColor}"/>
+    <SolidColorBrush x:Key="DangerBrush" Color="{DynamicResource DangerColor}"/>
+    <SolidColorBrush x:Key="GoodBrush" Color="{DynamicResource GoodColor}"/>
+    <SolidColorBrush x:Key="CardTopHighlightBrush" Color="{DynamicResource CardTopHighlightColor}"/>
+    <SolidColorBrush x:Key="GridLineBrush" Color="{DynamicResource GridLineColor}"/>
+
+    <!-- Per-metric identity colours for the dashboard cards. See the palette files for why
+         this is a deliberate exception to "colour means state": the THERMAL card is excluded
+         and still recolours from the live reading, so a real warning never competes with
+         decoration for the same hue. -->
+    <SolidColorBrush x:Key="MetricCpuBrush" Color="{DynamicResource MetricCpuColor}"/>
+    <SolidColorBrush x:Key="MetricMemBrush" Color="{DynamicResource MetricMemColor}"/>
+    <SolidColorBrush x:Key="MetricGpuBrush" Color="{DynamicResource MetricGpuColor}"/>
+
+    <!-- Legacy gradient keys, kept so existing markup resolves. They are flat now: six
+         competing gradients plus a decorative glow blob was the single biggest reason the
+         old UI read as cheap, because nothing on screen was ever a calm surface to read
+         data against. The sidebar shares the window background and is separated by one
+         hairline rather than a fill change. -->
+    <SolidColorBrush x:Key="AppBackgroundGradient" Color="{DynamicResource BackgroundColor}"/>
+    <SolidColorBrush x:Key="SidebarGradient" Color="{DynamicResource BackgroundColor}"/>
+    <SolidColorBrush x:Key="CardGradientBrush" Color="{DynamicResource PanelColor}"/>
+
+    <!-- Depth without shadows. On a near-black ground a drop shadow renders as a muddy
+         halo, so cards get a top-edge highlight instead: a 1px lighter line reads as
+         "lit from above" and is most of what separates a designed surface from a plain
+         rectangle. This is the vertical fade behind it, barely there by design. -->
+    <LinearGradientBrush x:Key="CardSheenBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="{DynamicResource CardTopHighlightColor}" Offset="0"/>
+        <GradientStop Color="#00000000" Offset="0.55"/>
+    </LinearGradientBrush>
+
+    <!-- The one real gradient, on the primary call-to-action only. -->
+    <LinearGradientBrush x:Key="AccentGradientBrush" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="{DynamicResource AccentColor}" Offset="0"/>
+        <GradientStop Color="{DynamicResource AccentDimColor}" Offset="1"/>
+    </LinearGradientBrush>
+
+    <!-- Was a blue-to-white gradient painted across every big number. Gradient fills on
+         numerals fight legibility at a glance, which is the one thing a telemetry readout
+         has to do. Solid now; live values recolour themselves from the thermal scale. -->
+    <SolidColorBrush x:Key="AccentTextGradient" Color="{DynamicResource TextPrimaryColor}"/>
+
+    <!-- Retained for compatibility; the decorative ambient blob it fed is gone. -->
+    <SolidColorBrush x:Key="GlowAccentBrush" Color="Transparent"/>
+
+    <!-- Type. Cascadia Mono ships with Windows 11 and has proper tabular figures, so every
+         numeric readout holds its column as digits change; Consolas is the fallback.
+         Prose stays on the system UI face. -->
+    <FontFamily x:Key="UiFont">Segoe UI Variable Text, Segoe UI</FontFamily>
+    <FontFamily x:Key="UiFontSemibold">Segoe UI Variable Display Semibold, Segoe UI Semibold, Segoe UI</FontFamily>
+    <FontFamily x:Key="UiFontLight">Segoe UI Variable Text, Segoe UI</FontFamily>
+    <FontFamily x:Key="MonoFont">Cascadia Mono, Consolas, Courier New</FontFamily>
+
+    <!-- One radius scale. Tight rather than soft: rounded corners read consumer-friendly,
+         and the register this UI wants is precision instrument. Sharper corners also hold
+         their shape better on a near-black ground, where a large radius on a barely lifted
+         surface dissolves into the background. -->
+    <CornerRadius x:Key="RadiusSm">3</CornerRadius>
+    <CornerRadius x:Key="RadiusMd">5</CornerRadius>
+    <CornerRadius x:Key="RadiusPill">999</CornerRadius>
+
+</ResourceDictionary>

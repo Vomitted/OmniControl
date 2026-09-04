@@ -1,0 +1,8 @@
+bin/
+obj/
+.vs/
+*.user
+
+# Local agent/tool configuration. Machine-specific, not part of the app.
+.claude/
+.claude-flow/

@@ -1,0 +1,8 @@
+<UserControl x:Class="OmniHub.App.Wpf.Controls.FanCurveChart"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Loaded="OnLoaded" SizeChanged="OnSizeChanged">
+    <Border Style="{StaticResource CardBorderStyle}" Height="240" Padding="8">
+        <Canvas x:Name="Root" ClipToBounds="True"/>
+    </Border>
+</UserControl>

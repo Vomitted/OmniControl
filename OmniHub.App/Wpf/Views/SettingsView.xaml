@@ -1,0 +1,188 @@
+<UserControl x:Class="OmniHub.App.Wpf.Views.SettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="{StaticResource BackgroundBrush}">
+    <UserControl.Resources>
+        <!-- Explanation on the left, its switch on the right, matching the Optimize tab. The
+             old layout stacked the toggle above its own label, which read as an unlabelled
+             control followed by unrelated prose. -->
+        <Style x:Key="SettingTitle" TargetType="TextBlock" BasedOn="{StaticResource BodyText}">
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+        <Style x:Key="SettingNote" TargetType="TextBlock" BasedOn="{StaticResource MutedText}">
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="Margin" Value="0,4,0,0"/>
+            <Setter Property="MaxWidth" Value="600"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+    </UserControl.Resources>
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="26,20,26,24">
+        <StackPanel>
+
+            <StackPanel Margin="0,0,0,16">
+                <TextBlock Text="Settings" Style="{StaticResource HeadingText}" FontSize="24"/>
+                <TextBlock Style="{StaticResource MutedText}" FontSize="12" Margin="0,4,0,0"
+                           Text="Stored in %AppData%\OmniHub\settings.json. Nothing here is sent anywhere."/>
+            </StackPanel>
+
+            <TextBlock Text="THEME" Style="{StaticResource SubHeadingText}"/>
+            <Border Style="{StaticResource CardBorderStyle}" Padding="16" Margin="0,0,0,18">
+                <Grid>
+                    <Border Style="{StaticResource CardSheenStyle}"/>
+                    <StackPanel>
+                        <TextBlock Text="Applies immediately, including the window title bar." Style="{StaticResource MutedText}"
+                                   FontSize="11.5" Margin="0,0,0,12"/>
+                        <ItemsControl x:Name="ThemeList">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate><WrapPanel/></ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <TextBlock Text="STARTUP" Style="{StaticResource SubHeadingText}"/>
+            <Border Style="{StaticResource CardBorderStyle}" Padding="16" Margin="0,0,0,18">
+                <Grid>
+                    <Border Style="{StaticResource CardSheenStyle}"/>
+
+                    <!-- Rows go in a StackPanel, matching every other card on this page. This
+                         card used to hold a single row directly in the Grid, which works only
+                         for one child: a Grid with no RowDefinitions puts every child in the
+                         same cell, so adding a second row drew it ON TOP of the first. -->
+                    <StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0" Margin="0,0,16,0">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Launch when you sign in" Style="{StaticResource SettingTitle}" VerticalAlignment="Center"/>
+                                    <Border x:Name="StartupChip" Style="{StaticResource StatusChipStyle}">
+                                        <TextBlock x:Name="StartupChipText" Style="{StaticResource StatusChipText}" Text="CHECKING"/>
+                                    </Border>
+                                </StackPanel>
+                                <TextBlock Style="{StaticResource SettingNote}"
+                                           Text="Without this, closing OmniHub hands the fan back to the stock BIOS curve, including its known 0%-while-hot behaviour, until you reopen it. Uses a Task Scheduler entry rather than a registry Run key, because OmniHub needs Administrator and a Run key would not reliably auto-elevate."/>
+                            </StackPanel>
+                            <CheckBox Grid.Column="1" x:Name="StartupToggle" Style="{StaticResource ToggleSwitchStyle}"
+                                      VerticalAlignment="Center" Checked="StartupToggle_Changed" Unchecked="StartupToggle_Changed"/>
+                        </Grid>
+
+                        <Grid Margin="0,16,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0" Margin="0,0,16,0">
+                                <TextBlock Text="Start hidden in the tray" Style="{StaticResource SettingTitle}"/>
+                                <TextBlock Style="{StaticResource SettingNote}"
+                                           Text="Comes up straight to the tray icon instead of opening the window. Everything still applies at launch -- profiles, fan curve, GPU unlock -- this only decides whether you see it happen."/>
+                            </StackPanel>
+                            <CheckBox Grid.Column="1" x:Name="StartMinimizedToggle" Style="{StaticResource ToggleSwitchStyle}"
+                                      VerticalAlignment="Center" Checked="StartMinimized_Changed" Unchecked="StartMinimized_Changed"/>
+                        </Grid>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <TextBlock Text="OVERLAY" Style="{StaticResource SubHeadingText}"/>
+            <Border Style="{StaticResource CardBorderStyle}" Padding="16" Margin="0,0,0,18">
+                <Grid>
+                    <Border Style="{StaticResource CardSheenStyle}"/>
+                    <StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0" Margin="0,0,16,0">
+                                <TextBlock Text="Always-on-top telemetry readout" Style="{StaticResource SettingTitle}"/>
+                                <TextBlock Style="{StaticResource SettingNote}"
+                                           Text="Die temperature, fan RPM and package power, in a corner of the screen. Clicks pass straight through it and it stays out of Alt-Tab. It draws as an ordinary desktop window, so it shows over borderless and windowed games but not over true fullscreen exclusive ones, which composite through the display driver and need a graphics-API hook such as RTSS."/>
+                            </StackPanel>
+                            <CheckBox Grid.Column="1" x:Name="OverlayToggle" Style="{StaticResource ToggleSwitchStyle}"
+                                      VerticalAlignment="Center" Checked="OverlayToggle_Changed" Unchecked="OverlayToggle_Changed"/>
+                        </Grid>
+                        <StackPanel Orientation="Horizontal" Margin="0,12,0,0">
+                            <TextBlock Text="Corner" Style="{StaticResource MutedText}" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                            <ComboBox x:Name="OverlayCornerPicker" MinWidth="160" VerticalAlignment="Center"
+                                      SelectionChanged="OverlayCorner_Changed"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <TextBlock Text="CLOSE BEHAVIOR" Style="{StaticResource SubHeadingText}"/>
+            <Border Style="{StaticResource CardBorderStyle}" Padding="16" Margin="0,0,0,18">
+                <Grid>
+                    <Border Style="{StaticResource CardSheenStyle}"/>
+                    <StackPanel>
+                        <TextBlock Text="What the window's close button does" Style="{StaticResource SettingTitle}" Margin="0,0,0,10"/>
+                        <Border Background="{StaticResource PanelAltBrush}" BorderBrush="{StaticResource BorderBrush}"
+                                BorderThickness="1" CornerRadius="5" Padding="3" HorizontalAlignment="Left">
+                            <StackPanel Orientation="Horizontal">
+                                <RadioButton x:Name="TrayCloseBtn" GroupName="CloseBehavior" Content="MINIMIZE TO TRAY" Width="168" Height="30" Style="{StaticResource PillRadioStyle}" Checked="CloseBehavior_Checked" Tag="Tray"/>
+                                <RadioButton x:Name="ExitCloseBtn" GroupName="CloseBehavior" Content="EXIT" Width="96" Height="30" Margin="3,0,0,0" Style="{StaticResource PillRadioStyle}" Checked="CloseBehavior_Checked" Tag="Exit"/>
+                            </StackPanel>
+                        </Border>
+                        <TextBlock Style="{StaticResource SettingNote}" Margin="0,10,0,0"
+                                   Text="Minimize to Tray keeps fan protection running in the background, which is the recommended setting. Exit fully quits and hands fan control back to the stock BIOS curve, the same as choosing Exit from the tray menu. Minimising the window does neither: it just minimises."/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <TextBlock Text="PREDICTIVE COOLING" Style="{StaticResource SubHeadingText}"/>
+            <Border Style="{StaticResource CardBorderStyle}" Padding="16" Margin="0,0,0,18">
+                <Grid>
+                    <Border Style="{StaticResource CardSheenStyle}"/>
+                    <StackPanel>
+                        <TextBlock Text="Ramp the fan before the heat arrives" Style="{StaticResource SettingTitle}" Margin="0,0,0,10"/>
+                        <Border Background="{StaticResource PanelAltBrush}" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1"
+                                CornerRadius="5" Padding="3" HorizontalAlignment="Left">
+                            <StackPanel Orientation="Horizontal">
+                                <RadioButton x:Name="LeadOffBtn" GroupName="Lead" Content="OFF" Width="72" Height="30" Style="{StaticResource PillRadioStyle}" Checked="Lead_Checked" Tag="0"/>
+                                <RadioButton x:Name="Lead5Btn" GroupName="Lead" Content="5 S" Width="72" Height="30" Margin="3,0" Style="{StaticResource PillRadioStyle}" Checked="Lead_Checked" Tag="5"/>
+                                <RadioButton x:Name="Lead10Btn" GroupName="Lead" Content="10 S" Width="72" Height="30" Style="{StaticResource PillRadioStyle}" Checked="Lead_Checked" Tag="10"/>
+                                <RadioButton x:Name="Lead20Btn" GroupName="Lead" Content="20 S" Width="72" Height="30" Margin="3,0,0,0" Style="{StaticResource PillRadioStyle}" Checked="Lead_Checked" Tag="20"/>
+                            </StackPanel>
+                        </Border>
+                        <TextBlock Style="{StaticResource SettingNote}" Margin="0,10,0,0"
+                                   Text="Estimates where the temperature is heading and evaluates the curve against whichever is higher, the measured value or the forecast. Because it only ever takes the higher of the two, a wrong prediction can cost some extra fan noise but can never let the fan back off while the machine is hot. Takes effect on the next restart."/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <TextBlock Text="DIAGNOSTICS" Style="{StaticResource SubHeadingText}"/>
+            <Border Style="{StaticResource CardBorderStyle}" Padding="16">
+                <Grid>
+                    <Border Style="{StaticResource CardSheenStyle}"/>
+                    <StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0" Margin="0,0,16,0">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Write a thermal log" Style="{StaticResource SettingTitle}" VerticalAlignment="Center"/>
+                                    <Border x:Name="LoggingChip" Style="{StaticResource StatusChipStyle}">
+                                        <TextBlock x:Name="LoggingChipText" Style="{StaticResource StatusChipText}" Text="OFF"/>
+                                    </Border>
+                                </StackPanel>
+                                <TextBlock Style="{StaticResource SettingNote}"
+                                           Text="Records temperature, both fan levels, the commanded percentage and the throttle flag every two seconds to a daily CSV. It logs the BIOS read-back next to what OmniHub asked for, so if the machine is ignoring a command you can see it. Takes effect on the next restart."/>
+                            </StackPanel>
+                            <CheckBox Grid.Column="1" x:Name="LoggingToggle" Style="{StaticResource ToggleSwitchStyle}"
+                                      VerticalAlignment="Center" Checked="LoggingToggle_Changed" Unchecked="LoggingToggle_Changed"/>
+                        </Grid>
+                        <Button x:Name="OpenLogsBtn" Content="Open Log Folder" Style="{StaticResource FlatButtonStyle}"
+                                HorizontalAlignment="Left" Margin="0,14,0,0" Click="OpenLogsBtn_Click"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

@@ -1,0 +1,5 @@
+﻿<Solution>
+  <Project Path="OmniHub.App/OmniHub.App.csproj" />
+  <Project Path="OmniHub.Core/OmniHub.Core.csproj" />
+  <Project Path="OmniHub.Tests/OmniHub.Tests.csproj" />
+</Solution>

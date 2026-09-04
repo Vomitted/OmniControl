@@ -1,0 +1,293 @@
+using OmniHub.Core.Fan;
+using SysTimer = System.Threading.Timer;
+
+namespace OmniHub.Core.Hardware;
+
+/// <summary>
+/// One poll's worth of hardware state.
+///
+/// TemperatureC is kept as a whole-degree byte because that is what every existing consumer
+/// displays. PreciseTemperatureC carries the same reading unrounded, which matters once the
+/// source is Tctl: that sensor resolves to 0.125C, and rounding it away at the record
+/// boundary would discard most of the reason for reading it.
+/// </summary>
+public sealed record Reading(
+    byte TemperatureC,
+    byte FanLevel1,
+    byte FanLevel2,
+    bool MaxFanActive,
+    ThrottlingState Throttling,
+    double PreciseTemperatureC = double.NaN,
+    TemperatureSource TemperatureSource = TemperatureSource.AcpiThermalZone);
+
+/// <summary>
+/// Owns the one BiosInterop connection and hands out the specialized
+/// controllers, plus a shared poll loop so the Dashboard/Fans/GPU/Power
+/// tabs aren't each opening their own WMI session.
+/// </summary>
+public sealed class HardwareContext : IDisposable
+{
+    private readonly BiosInterop _bios;
+    private SysTimer? _pollTimer;
+
+    public FanController Fan { get; }
+    public GpuController Gpu { get; }
+    public PowerController Power { get; }
+    public SystemController System { get; }
+    public ModelInfo Model { get; }
+
+    /// <summary>
+    /// SMU access through PawnIO, or null when it is unavailable -- see
+    /// <see cref="SmuUnavailableReason"/>. Null is an ordinary state (no driver, not
+    /// elevated, no module), not a failure, and everything here still works without it.
+    /// </summary>
+    public RyzenSmu? Smu { get; private set; }
+
+    /// <summary>Why <see cref="Smu"/> is null, in words fit to show a user. Null when it opened.</summary>
+    public string? SmuUnavailableReason { get; private set; }
+
+    /// <summary>
+    /// Whether this machine exposes the vendor control interface that fan control, GPU power
+    /// and BIOS power limits all depend on.
+    ///
+    /// False is a supported state: temperatures, load, clocks, memory, battery and every
+    /// Windows-side control still work, and the app runs normally with the vendor-specific
+    /// panels reporting themselves unavailable rather than the process failing to start.
+    /// </summary>
+    public bool VendorSupported => _bios.IsAvailable;
+
+    /// <summary>Why the vendor interface is unavailable, or null when it is present.</summary>
+    public string? VendorUnavailableReason => _bios.UnavailableReason;
+
+    private DateTime _nextSmuRetryUtc = DateTime.MinValue;
+
+    /// <summary>How long to wait between attempts to open a driver that was not there yet.</summary>
+    private static readonly TimeSpan SmuRetryInterval = TimeSpan.FromSeconds(10);
+
+    /// <summary>
+    /// Tries again to open the SMU, for as long as it has not opened.
+    ///
+    /// PawnIO's service is installed with Manual start, so when OmniHub launches at sign-in it
+    /// regularly wins the race and the single attempt in the constructor fails. Without a
+    /// retry that verdict stood for the whole session: no Tctl, every reading falling back to
+    /// the ACPI zone, and that zone pins at 85 C -- which the fan curve correctly reads as a
+    /// blind sensor and answers with 100% airflow. One missed driver open at boot was
+    /// therefore worth hours of maximum fan.
+    ///
+    /// Cheap to call: it does nothing once Smu is open, and only retries every ten seconds
+    /// while it is not.
+    /// </summary>
+    private void RetrySmuOpen()
+    {
+        if (Smu is not null || DateTime.UtcNow < _nextSmuRetryUtc) return;
+        _nextSmuRetryUtc = DateTime.UtcNow + SmuRetryInterval;
+
+        var smu = RyzenSmu.TryOpen(out string? reason);
+        if (smu is null)
+        {
+            SmuUnavailableReason = reason;
+            return;
+        }
+
+        Smu = smu;
+        SmuUnavailableReason = null;
+        System.AttachSmu(smu);
+    }
+
+    public event Action<Reading>? OnReading;
+
+    /// <summary>
+    /// Filtered CPU die temperature, for anything on screen.
+    ///
+    /// Lives here rather than on FanService because FanService STOPS whenever the fan mode
+    /// leaves Auto -- MAX TURBO and BIOS Default both call Stop() -- and a stopped service
+    /// stops ingesting while HasEnoughData stays true. FilteredTempC then held whatever it
+    /// last computed, forever, and the dashboard rendered that number beside a live fan speed
+    /// and a live clock. That is the "temperature is stuck" report: the reading was never
+    /// wrong, it just had no writer any more.
+    ///
+    /// This poll loop runs for the life of the app regardless of fan mode, which makes it the
+    /// only honest source for a readout that is always visible.
+    /// </summary>
+    public ThermalTrend CpuTrend { get; } = new();
+
+    public HardwareContext()
+    {
+        _bios = new BiosInterop();
+
+        // Opened before SystemController so it can be handed in. This never throws: an absent
+        // driver comes back as null plus a reason, and the ACPI path continues to work.
+        Smu = RyzenSmu.TryOpen(out string? smuReason);
+        SmuUnavailableReason = smuReason;
+
+        Fan = new FanController(_bios);
+        Gpu = new GpuController(_bios);
+        Power = new PowerController(_bios);
+        System = new SystemController(_bios, Smu);
+        Model = ModelProfile.Detect();
+    }
+
+    private byte _lastTemperatureC;
+    private TemperatureReading _lastTemperature;
+    private DateTime _lastTemperatureAtUtc = DateTime.MinValue;
+    private int _polling;
+
+    /// <summary>How many poll ticks pass between refreshes of the slow-moving BIOS flags.</summary>
+    private const int SlowTickEvery = 5;
+    private int _slowTick;
+    private bool _lastMaxFan;
+    private ThrottlingState _lastThrottle = ThrottlingState.Unknown;
+
+    /// <summary>How old a cached temperature may be before it stops counting as current.</summary>
+    private static readonly TimeSpan TemperatureMaxAge = TimeSpan.FromSeconds(8);
+
+    /// <summary>
+    /// The temperature from the most recent poll: the same value the UI is displaying.
+    ///
+    /// This exists so the fan curve and the on-screen readout cannot disagree. They used to.
+    /// The poll timer read the sensor for the display, and FanService independently read it
+    /// again on its own timer for the curve. Two unsynchronised 2-second loops meant the
+    /// number on screen was never quite the number the fan was acting on, and each loop cost
+    /// its own WMI query.
+    ///
+    /// Throws rather than returning a stale or default value: a silently wrong temperature
+    /// here would command a near-silent fan while the machine is hot, which is the exact
+    /// failure this app exists to prevent. Both callers already skip a failed tick.
+    /// </summary>
+    public byte CurrentTemperatureC() => (byte)Math.Clamp(Math.Round(CurrentTemperature().Celsius), 0, 255);
+
+    /// <summary>
+    /// The most recent reading at full precision, together with which sensor produced it.
+    ///
+    /// The fan curve should prefer this over <see cref="CurrentTemperatureC"/>: the source
+    /// determines whether a reading near 85C means "the die is at 85C" or "the sensor is
+    /// blind and it could be anything above that", and those call for opposite responses.
+    ///
+    /// Throws on a stale or absent reading for the same reason as before -- a silently wrong
+    /// temperature here would command a near-silent fan while the machine is hot.
+    /// </summary>
+    public TemperatureReading CurrentTemperature()
+    {
+        var at = _lastTemperatureAtUtc;
+        if (at == DateTime.MinValue)
+            throw new InvalidOperationException("No temperature reading yet -- polling has not produced one.");
+
+        var age = DateTime.UtcNow - at;
+        if (age > TemperatureMaxAge)
+            throw new InvalidOperationException(
+                $"Temperature reading is stale ({age.TotalSeconds:0.#}s old) -- the poll loop is not keeping up.");
+
+        return _lastTemperature;
+    }
+
+    public void StartPolling(TimeSpan interval)
+    {
+        if (_pollTimer is not null) return; // idempotent; a second call would orphan the first timer
+
+        // Period is Infinite and the timer re-arms at the end of each cycle. With a fixed 2s
+        // period, a cycle that overran -- four BIOS round-trips can -- would have the next
+        // tick start on another thread pool thread while the previous was still running,
+        // stacking concurrent pollers against shared hardware state.
+        //
+        // The timer is created STOPPED and captured in a local, then started below. Creating
+        // it with a zero due time queues the first callback before the constructor returns,
+        // so the callback could reach its re-arm line while the field it re-arms through was
+        // still null -- the re-arm would silently no-op and the loop would stop after exactly
+        // one reading. That failure is invisible (no exception) and total: the temperature
+        // freezes, CurrentTemperatureC starts throwing stale, and the fan curve stops
+        // commanding anything. Capturing the local removes the race entirely.
+        SysTimer? timer = null;
+        timer = new SysTimer(_ =>
+        {
+            // Belt and braces alongside the re-arm below: Dispose can race a queued callback.
+            if (Interlocked.Exchange(ref _polling, 1) == 1) return;
+            try
+            {
+                // Before the reading, so a late-arriving driver is picked up on the very next
+                // tick rather than never.
+                RetrySmuOpen();
+
+                var reading = System.ReadTemperature();
+                var temp = (byte)Math.Clamp(Math.Round(reading.Celsius), 0, 255);
+                _lastTemperature = reading;
+                _lastTemperatureC = temp;
+                _lastTemperatureAtUtc = DateTime.UtcNow;
+                CpuTrend.Ingest(reading.Celsius, _lastTemperatureAtUtc);
+
+                var levels = Fan.GetFanLevel();
+
+                // Max-fan and throttling are read every fifth tick, not every tick.
+                //
+                // Each is a separate hpqBIntM round trip, and neither earns that rate. Max fan
+                // only changes when something deliberately toggles it. Throttling is worse
+                // than slow: SystemController.GetThrottling documents itself as unverified on
+                // this firmware, since a diagnostic sweep showed the response echoing back the
+                // selector byte it was sent. Paying for two BIOS calls a second to refresh a
+                // flag that rarely moves and a flag we do not fully trust is the wrong trade.
+                if (++_slowTick >= SlowTickEvery || _slowTick == 1)
+                {
+                    _slowTick = 1;
+                    try
+                    {
+                        _lastMaxFan = System.GetMaxFanActive();
+                        _lastThrottle = System.GetThrottling();
+                    }
+                    catch
+                    {
+                        // Vendor-only flags. Their absence leaves the last known values, which
+                        // default to "not max fan" and "unknown throttling" -- both honest.
+                    }
+                }
+                var maxFan = _lastMaxFan;
+                var throttle = _lastThrottle;
+                var payload = new Reading(temp,
+                    levels.Length > 0 ? levels[0] : (byte)0,
+                    levels.Length > 1 ? levels[1] : (byte)0,
+                    maxFan, throttle,
+                    reading.Celsius, reading.Source);
+
+                // Each subscriber is invoked separately, in its own try.
+                //
+                // A plain OnReading?.Invoke walks the invocation list and stops dead at the
+                // first handler that throws -- every later subscriber is skipped, and the
+                // exception lands in the catch below where it is discarded. There are up to
+                // seven subscribers here (throttle detection, the thermal log, the overlay,
+                // the ribbon, and the dashboard, fans and tray views), several of them UI code
+                // that can fail on a resource lookup or on a control being torn down. One of
+                // those quietly disabling throttle detection and thermal logging for the rest
+                // of the session is the same invisible partial failure this app has already
+                // been bitten by twice.
+                //
+                // PowerSourceWatcher and ProcessWatcher already guard their raises this way.
+                // This one, much the busiest, did not.
+                if (OnReading is { } handlers)
+                {
+                    foreach (var handler in handlers.GetInvocationList())
+                    {
+                        try { ((Action<Reading>)handler)(payload); }
+                        catch { /* one bad subscriber must not silence the others */ }
+                    }
+                }
+            }
+            catch
+            {
+                // Transient BIOS call failures shouldn't crash the poll loop
+            }
+            finally
+            {
+                Interlocked.Exchange(ref _polling, 0);
+                try { timer!.Change(interval, Timeout.InfiniteTimeSpan); } catch (ObjectDisposedException) { }
+            }
+        }, null, Timeout.InfiniteTimeSpan, Timeout.InfiniteTimeSpan);
+
+        _pollTimer = timer;
+        timer.Change(TimeSpan.Zero, Timeout.InfiniteTimeSpan); // first tick now, then self-re-arming
+    }
+
+    public void Dispose()
+    {
+        _pollTimer?.Dispose();
+        Smu?.Dispose();
+        _bios.Dispose();
+    }
+}
