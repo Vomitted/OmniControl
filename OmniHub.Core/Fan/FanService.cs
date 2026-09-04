@@ -135,12 +135,8 @@ public sealed class FanService : IDisposable
                 //
                 // Retrying it each tick until it succeeds also covers what it was written for:
                 // the BIOS refusing manual control at the moment the service happens to start.
-                if (!modeTaken)
-                {
-                    _fan.SetFanMode(FanMode.Performance);
-                    modeTaken = true;
-                }
-
+                //
+                // It is re-asserted on the periodic refresh below as well -- see there.
                 var reading = _readTemperature();
                 double temp = reading.Celsius;
                 TemperatureSource = reading.Source;
@@ -234,6 +230,28 @@ public sealed class FanService : IDisposable
 
                 if (levelChanged || refreshDue)
                 {
+                    // Manual control is RE-ASSERTED here, not taken once at startup.
+                    //
+                    // SetFanMode is the call that lifts the fans off the BIOS curve, and
+                    // SetFanLevel is ignored by the EC unless that mode is currently held.
+                    // Asserting it once and assuming it sticks was the rest of "the fans stop
+                    // and only a restart brings them back": when the EC reclaims control --
+                    // sleep, resume, a firmware mode change, the vendor's own service -- every
+                    // later level write goes nowhere, the BIOS curve takes over with its
+                    // 0%-while-hot entry, and nothing here noticed because the level writes
+                    // carried on "succeeding". Restarting the app worked purely because Start
+                    // ran this assert again.
+                    //
+                    // The comment above already said "no revert within a minute" is not "never
+                    // reverts", which is exactly why the level refresh exists. The mode assert
+                    // simply was not part of it. It costs one extra BIOS call per 30 seconds,
+                    // on the same schedule as a write that was already happening.
+                    if (!modeTaken || refreshDue)
+                    {
+                        _fan.SetFanMode(FanMode.Performance);
+                        modeTaken = true;
+                    }
+
                     _fan.SetFanLevel(raw1, raw2);
                     _lastRaw1 = raw1;
                     _lastRaw2 = raw2;
