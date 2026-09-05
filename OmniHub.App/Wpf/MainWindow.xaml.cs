@@ -79,6 +79,7 @@ public partial class MainWindow : Window
         _ctx.StartPolling(TimeSpan.FromSeconds(2));
         _fansView.ApplySavedMode();
         UpdateActiveModeLabel();
+        _ctx.OnReading += _ => ReassertGpuPower();
         _ctx.OnReading += OnThrottleCheck;
         _ctx.OnReading += OnLogReading;
         _ctx.OnReading += OnOverlayReading;
@@ -589,6 +590,56 @@ public partial class MainWindow : Window
         {
             if (overlay.IsVisible) overlay.Update(r, _service);
         });
+    }
+
+    private DateTime _nextGpuCheckUtc = DateTime.MinValue;
+
+    /// <summary>
+    /// How often the GPU power unlock is checked and, if dropped, re-sent.
+    ///
+    /// Five seconds, not thirty. Measured: at a 30s interval the enforced ceiling oscillated
+    /// 70 -> 75 -> 70, because the firmware reclaims Custom TGP far faster than that and the
+    /// GPU spent most of its time back at the Off/On combination, which is exactly 70 W. The
+    /// interval has to beat the reversion, not merely notice it eventually.
+    ///
+    /// The steady-state cost is one BIOS read per five seconds; a write only happens on a tick
+    /// that finds the flag actually dropped.
+    /// </summary>
+    private static readonly TimeSpan GpuReassertInterval = TimeSpan.FromSeconds(5);
+
+    /// <summary>
+    /// Puts the GPU power unlock back when the firmware takes it away.
+    ///
+    /// Measured: with the app not touching it, Custom TGP was applied as On and read back Off
+    /// ninety seconds later, with Ppab still On -- a combination no code path here writes, so
+    /// the firmware reclaimed it on its own. The enforced ceiling drops 70 W -> 60 W when that
+    /// happens, which is exactly the reported "maxed out, but it peaks around 70" and then
+    /// falls back.
+    ///
+    /// This is the same failure as the fan loop's SetFanMode: a setting applied once at
+    /// startup, silently reverted by firmware, and never re-asserted. Applying it once is not
+    /// enough on this platform for anything the EC also has an opinion about.
+    ///
+    /// Reads before writing, so the steady state costs one BIOS read per 30s rather than a
+    /// write -- and the read is what tells us it drifted at all.
+    /// </summary>
+    private void ReassertGpuPower()
+    {
+        if (!_settings.GpuMaxPower || DateTime.UtcNow < _nextGpuCheckUtc) return;
+        _nextGpuCheckUtc = DateTime.UtcNow + GpuReassertInterval;
+
+        try
+        {
+            if (_ctx.Gpu.GetPower().CustomTgp == GpuCustomTgp.On) return;
+
+            _ctx.Gpu.ForceMaxPower = true;
+            _ctx.Gpu.SetPower(new GpuPowerData(GpuCustomTgp.On, GpuPpab.On, GpuDState.D1, 0));
+        }
+        catch
+        {
+            // A BIOS round trip that fails here must not disturb the poll fan-out. The next
+            // tick tries again.
+        }
     }
 
     private void OnThrottleCheck(Reading r)
