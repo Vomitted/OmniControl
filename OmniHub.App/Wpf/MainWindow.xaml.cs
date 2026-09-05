@@ -623,23 +623,39 @@ public partial class MainWindow : Window
     /// Reads before writing, so the steady state costs one BIOS read per 30s rather than a
     /// write -- and the read is what tells us it drifted at all.
     /// </summary>
+    private int _gpuCheckInFlight;
+
     private void ReassertGpuPower()
     {
         if (!_settings.GpuMaxPower || DateTime.UtcNow < _nextGpuCheckUtc) return;
         _nextGpuCheckUtc = DateTime.UtcNow + GpuReassertInterval;
 
-        try
-        {
-            if (_ctx.Gpu.GetPower().CustomTgp == GpuCustomTgp.On) return;
+        // Off the poll thread, and never twice at once.
+        //
+        // This began life running inline on the poll callback, which holds the poll loop's
+        // re-entrancy interlock for its whole duration -- so a BIOS read every five seconds,
+        // plus a write whenever the flag had been dropped, sat directly on the critical path
+        // of temperature polling. BIOS round trips are the most expensive thing this app does,
+        // and putting two of them there is what made it feel sluggish.
+        //
+        // The interlock stops a slow round trip from stacking further checks behind it.
+        if (Interlocked.Exchange(ref _gpuCheckInFlight, 1) == 1) return;
 
-            _ctx.Gpu.ForceMaxPower = true;
-            _ctx.Gpu.SetPower(new GpuPowerData(GpuCustomTgp.On, GpuPpab.On, GpuDState.D1, 0));
-        }
-        catch
+        Task.Run(() =>
         {
-            // A BIOS round trip that fails here must not disturb the poll fan-out. The next
-            // tick tries again.
-        }
+            try
+            {
+                if (_ctx.Gpu.GetPower().CustomTgp == GpuCustomTgp.On) return;
+
+                _ctx.Gpu.ForceMaxPower = true;
+                _ctx.Gpu.SetPower(new GpuPowerData(GpuCustomTgp.On, GpuPpab.On, GpuDState.D1, 0));
+            }
+            catch
+            {
+                // A failed BIOS round trip must not disturb anything. The next tick retries.
+            }
+            finally { Interlocked.Exchange(ref _gpuCheckInFlight, 0); }
+        });
     }
 
     private void OnThrottleCheck(Reading r)

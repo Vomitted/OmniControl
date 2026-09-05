@@ -15,9 +15,65 @@ public partial class App : Application
     // actively fight each other for fan control via competing SetFanLevel calls.
     private Mutex? _singleInstanceMutex;
 
+    /// <summary>
+    /// Catches what would otherwise kill the process, and writes it down.
+    ///
+    /// Everything below OnStartup's own try was unprotected, so any unhandled exception --
+    /// anywhere, at any time -- terminated OmniHub silently. Two real examples from this
+    /// machine's event log in one week: a frozen TranslateTransform that threw the moment a
+    /// card was hovered, and a WMI "Invalid query" from a background reader. Neither had any
+    /// business ending the process, and neither left a trace the app could show.
+    ///
+    /// That matters more here than in most applications. While OmniHub is closed the fans are
+    /// back on the stock BIOS curve, including the 0%-while-hot behaviour it exists to prevent,
+    /// so a crash does not merely inconvenience: it silently removes the protection.
+    ///
+    /// Dispatcher exceptions are marked handled, because a UI hiccup should not take fan
+    /// control down with it. That trades fail-fast for continuity, which is exactly why each
+    /// one is logged rather than swallowed -- crash.log is what makes them findable after.
+    /// </summary>
+    private static void InstallCrashHandlers()
+    {
+        Current.DispatcherUnhandledException += (_, e) =>
+        {
+            Log("Dispatcher", e.Exception);
+            e.Handled = true;
+        };
+
+        // Cannot be prevented, only recorded: the runtime is already tearing down.
+        AppDomain.CurrentDomain.UnhandledException += (_, e) => Log("AppDomain", e.ExceptionObject as Exception);
+
+        // A faulted Task nobody awaited. Harmless by default in .NET, but it is exactly where a
+        // background hardware read goes to die unnoticed, so it is worth writing down.
+        System.Threading.Tasks.TaskScheduler.UnobservedTaskException += (_, e) =>
+        {
+            Log("Task", e.Exception);
+            e.SetObserved();
+        };
+    }
+
+    private static void Log(string source, Exception? ex)
+    {
+        if (ex is null) return;
+        try
+        {
+            var dir = System.IO.Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "OmniHub", "logs");
+            System.IO.Directory.CreateDirectory(dir);
+            System.IO.File.AppendAllText(
+                System.IO.Path.Combine(dir, "crash.log"),
+                $"{DateTime.Now:yyyy-MM-dd HH:mm:ss}  [{source}]  {ex}{Environment.NewLine}{Environment.NewLine}");
+        }
+        catch
+        {
+            // Logging a crash must never cause one.
+        }
+    }
+
     protected override void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
+        InstallCrashHandlers();
 
         _singleInstanceMutex = new Mutex(true, "Local\\OmniHub_SingleInstance_Mutex", out bool createdNew);
         if (!createdNew)

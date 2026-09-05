@@ -275,46 +275,18 @@
                                 </LinearGradientBrush>
                             </Border.Background>
                         </Border>
-                        <!-- Nudged right on hover. The label leaning toward the pointer is the
-                             cheapest way to make a list feel responsive rather than painted;
-                             3px is under the threshold of looking like a layout bug and over
-                             the threshold of being felt. -->
-                        <ContentPresenter x:Name="NavContent" Margin="24,0,12,0" VerticalAlignment="Center">
-                            <ContentPresenter.RenderTransform>
-                                <TranslateTransform X="0"/>
-                            </ContentPresenter.RenderTransform>
-                        </ContentPresenter>
+                        <!-- A hover nudge lived here and has been removed. A template creates a
+                             fresh transform per instance so it was probably safe, unlike the
+                             card lift in CardBorderStyle which was shared, frozen, and crashed
+                             the app on first hover. "Probably safe" is not a good enough reason
+                             to keep three pixels of movement in the same shape that just took
+                             the process down. -->
+                        <ContentPresenter Margin="24,0,12,0" VerticalAlignment="Center"/>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="Bd" Property="Background" Value="{StaticResource PanelAltBrush}"/>
                             <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
-                            <Trigger.EnterActions>
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="NavContent"
-                                                         Storyboard.TargetProperty="RenderTransform.X"
-                                                         To="3" Duration="0:0:0.14">
-                                            <DoubleAnimation.EasingFunction>
-                                                <CubicEase EasingMode="EaseOut"/>
-                                            </DoubleAnimation.EasingFunction>
-                                        </DoubleAnimation>
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </Trigger.EnterActions>
-                            <Trigger.ExitActions>
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="NavContent"
-                                                         Storyboard.TargetProperty="RenderTransform.X"
-                                                         To="0" Duration="0:0:0.18">
-                                            <DoubleAnimation.EasingFunction>
-                                                <CubicEase EasingMode="EaseOut"/>
-                                            </DoubleAnimation.EasingFunction>
-                                        </DoubleAnimation>
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </Trigger.ExitActions>
                         </Trigger>
                         <Trigger Property="IsChecked" Value="True">
                             <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
@@ -366,42 +338,16 @@
         <Setter Property="CornerRadius" Value="5"/>
         <Setter Property="Padding" Value="18"/>
 
-        <!-- The pointer lifts a card slightly and warms its edge.
-             1.5px of translation and a border colour, NOT a scale: these cards contain charts,
-             tables and live numbers, and scaling resamples all of that every frame. It looks
-             soft and costs a layout pass on every mouse move. Translating moves the composited
-             layer instead, and nothing re-renders.
-             160ms EaseOut: quick enough to feel attached to the pointer rather than trailing
-             it, slow enough not to flicker as the mouse crosses a card edge. -->
-        <Setter Property="RenderTransform">
-            <Setter.Value><TranslateTransform Y="0"/></Setter.Value>
-        </Setter>
+        <!-- Hover warms the edge. It used to also lift the card 1.5px, and that CRASHED the
+             app: a Freezable put in a Style.Setter value is frozen when the style is sealed,
+             and every Border using this style shares that one instance, so the first hover
+             threw "Cannot animate the 'Y' property ... because the object is sealed or frozen"
+             on the UI thread and terminated the process.
+             The lift could be brought back by giving each card its own transform in its own
+             XAML, but that is a per-card edit across every view for 1.5 pixels. A border that
+             responds is enough of a cue, and it cannot crash. -->
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Trigger.EnterActions>
-                    <BeginStoryboard>
-                        <Storyboard>
-                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.Y"
-                                             To="-1.5" Duration="0:0:0.16">
-                                <DoubleAnimation.EasingFunction>
-                                    <CubicEase EasingMode="EaseOut"/>
-                                </DoubleAnimation.EasingFunction>
-                            </DoubleAnimation>
-                        </Storyboard>
-                    </BeginStoryboard>
-                </Trigger.EnterActions>
-                <Trigger.ExitActions>
-                    <BeginStoryboard>
-                        <Storyboard>
-                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.Y"
-                                             To="0" Duration="0:0:0.16">
-                                <DoubleAnimation.EasingFunction>
-                                    <CubicEase EasingMode="EaseOut"/>
-                                </DoubleAnimation.EasingFunction>
-                            </DoubleAnimation>
-                        </Storyboard>
-                    </BeginStoryboard>
-                </Trigger.ExitActions>
                 <Setter Property="BorderBrush" Value="{StaticResource BorderStrongBrush}"/>
             </Trigger>
         </Style.Triggers>
