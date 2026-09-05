@@ -77,6 +77,19 @@ public sealed class AppSettings
     /// <summary>Which screen corner the overlay sits in.</summary>
     public OverlayCorner OverlayCorner { get; set; } = OverlayCorner.TopRight;
 
+    /// <summary>
+    /// Overlay opacity, 0.2 to 1.0. Clamped on use rather than trusted: this is a
+    /// hand-editable file, and an opacity of 0 is an overlay you cannot find to fix.
+    /// </summary>
+    public double OverlayOpacity { get; set; } = 0.88;
+
+    /// <summary>
+    /// Which metrics the overlay shows, in order. Keys are matched against
+    /// OverlayWindow.AvailableMetrics; unknown keys are ignored rather than throwing, so a
+    /// settings file written by a newer build still loads.
+    /// </summary>
+    public List<string> OverlayMetrics { get; set; } = new() { "cpu", "gpu", "fan", "pkg" };
+
     /// <summary>User-defined tuning profiles, saved from the Tuning tab's sliders.</summary>
     public List<AmdTuningProfile> CustomProfiles { get; set; } = new();
 

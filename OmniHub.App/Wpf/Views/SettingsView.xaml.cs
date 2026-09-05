@@ -165,7 +165,60 @@ public partial class SettingsView : UserControl
         foreach (var corner in Enum.GetValues<OverlayCorner>())
             OverlayCornerPicker.Items.Add(Describe(corner));
         OverlayCornerPicker.SelectedIndex = (int)_settings.OverlayCorner;
+
+        _suppressOverlayEvents = true;
+        OverlayOpacitySlider.Value = Math.Clamp(_settings.OverlayOpacity, 0.2, 1.0);
+        OverlayOpacityLabel.Text = $"{OverlayOpacitySlider.Value * 100:0}%";
+        _suppressOverlayEvents = false;
+
+        // One checkbox per available metric, ticked if the user has it. Overlay order follows
+        // the saved list, so re-ticking a metric appends it rather than restoring its old
+        // position -- predictable enough not to need drag ordering.
+        foreach (var (key, label) in Wpf.OverlayWindow.AvailableMetrics)
+        {
+            var box = new System.Windows.Controls.CheckBox
+            {
+                Style = (Style)FindResource("OmniCheckBoxStyle"),
+                Content = label,
+                IsChecked = _settings.OverlayMetrics.Contains(key),
+                Margin = new Thickness(0, 0, 18, 8),
+                Tag = key,
+            };
+            box.Checked += OverlayMetric_Changed;
+            box.Unchecked += OverlayMetric_Changed;
+            OverlayMetricList.Children.Add(box);
+        }
     }
+
+    private bool _suppressOverlayEvents;
+
+    private void OverlayOpacity_Changed(object sender, RoutedPropertyChangedEventArgs<double> e)
+    {
+        // Slider.ValueChanged fires during InitializeComponent, before the label field exists.
+        if (_suppressOverlayEvents || OverlayOpacityLabel is null) return;
+
+        _settings.OverlayOpacity = OverlayOpacitySlider.Value;
+        OverlayOpacityLabel.Text = $"{OverlayOpacitySlider.Value * 100:0}%";
+        _settings.Save();
+        Owner()?.RefreshOverlayAppearance();
+    }
+
+    private void OverlayMetric_Changed(object sender, RoutedEventArgs e)
+    {
+        if (sender is not System.Windows.Controls.CheckBox { Tag: string key } box) return;
+
+        if (box.IsChecked == true)
+        {
+            if (!_settings.OverlayMetrics.Contains(key)) _settings.OverlayMetrics.Add(key);
+        }
+        else _settings.OverlayMetrics.Remove(key);
+
+        _settings.Save();
+        Owner()?.RefreshOverlayAppearance();
+    }
+
+    /// <summary>The MainWindow hosting this view, or null before it is up.</summary>
+    private MainWindow? Owner() => Window.GetWindow(this) as MainWindow;
 
     private static string Describe(OverlayCorner corner) => corner switch
     {

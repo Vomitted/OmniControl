@@ -1,5 +1,6 @@
 using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Interop;
 using System.Windows.Threading;
 using OmniHub.Core.Fan;
@@ -42,6 +43,10 @@ public partial class OverlayWindow : Window
     private DispatcherTimer? _powerTimer;
     private string _powerLabel = "--";
 
+    // GPU figures, refreshed on the same slow timer as package power and cached here.
+    // Never read on the UI thread: GpuTelemetry spawns nvidia-smi on a cache miss.
+    private string _gpuTempLabel = "--", _gpuPowerLabel = "--", _gpuClockLabel = "--", _gpuLoadLabel = "--";
+
     public OverlayWindow(HardwareContext ctx, AppSettings settings)
     {
         InitializeComponent();
@@ -55,9 +60,11 @@ public partial class OverlayWindow : Window
         }
 
         // No SMU means no package power to show. Hiding the row is better than a permanent
-        // "--" that looks like a fault.
-        if (_tuning is null) PowerRow.Visibility = Visibility.Collapsed;
-        else StartPowerUpdates();
+        // "--" that looks like a fault. With rows now chosen by the user, an unavailable
+        // metric simply renders "--" like any other missing reading; the timer only starts
+        // when there is something for it to read.
+        ApplyAppearance();
+        StartPowerUpdates();
 
         // Re-place on resize: SizeToContent means the size is not known until the window has
         // laid out, and a corner-anchored window placed before that lands in the wrong spot.
@@ -94,6 +101,76 @@ public partial class OverlayWindow : Window
     /// Refreshes from a poll the app already performs, so the overlay costs nothing extra for
     /// temperature and fan speed.
     /// </summary>
+    /// <summary>
+    /// Every metric the overlay can show: stored key, and the label drawn beside it.
+    ///
+    /// The order here is the order the settings UI offers them in; the order the user picks is
+    /// what the overlay draws, so a list is the right shape rather than a flags enum.
+    /// </summary>
+    public static IReadOnlyList<(string Key, string Label)> AvailableMetrics { get; } = new[]
+    {
+        ("cpu",     "CPU"),
+        ("gpu",     "GPU"),
+        ("fan",     "FAN"),
+        ("fan2",    "FAN 2"),
+        ("pkg",     "PKG"),
+        ("gpuw",    "GPU W"),
+        ("gpuclk",  "GPU MHz"),
+        ("gpuload", "GPU %"),
+    };
+
+    private readonly Dictionary<string, TextBlock> _valueCells = new();
+
+    /// <summary>
+    /// Rebuilds the rows and re-applies opacity. Called at construction and whenever the
+    /// settings change, so a choice shows immediately rather than at next launch -- a preview
+    /// you have to restart to see is not a preview.
+    /// </summary>
+    public void ApplyAppearance()
+    {
+        // Clamped, not trusted: settings.json is hand-editable, and an opacity of 0 leaves an
+        // overlay that is still there, still click-through, and impossible to find.
+        Card.Opacity = Math.Clamp(_settings.OverlayOpacity, 0.2, 1.0);
+
+        MetricRows.Children.Clear();
+        _valueCells.Clear();
+
+        foreach (var key in _settings.OverlayMetrics)
+        {
+            var metric = AvailableMetrics.FirstOrDefault(m => m.Key == key);
+            if (metric.Key is null) continue;   // unknown key from a newer build: skip, never throw
+
+            var grid = new Grid { Margin = new Thickness(0, 0, 0, 3) };
+            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(58) });
+            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+
+            grid.Children.Add(new TextBlock
+            {
+                Text = metric.Label,
+                Style = (Style)FindResource("MutedText"),
+                FontSize = 11,
+                VerticalAlignment = VerticalAlignment.Center,
+            });
+
+            var value = new TextBlock
+            {
+                Style = (Style)FindResource("BigNumberText"),
+                FontSize = 17,
+                Text = "--",
+            };
+            Grid.SetColumn(value, 1);
+            grid.Children.Add(value);
+
+            _valueCells[key] = value;
+            MetricRows.Children.Add(grid);
+        }
+    }
+
+    private void Set(string key, string text)
+    {
+        if (_valueCells.TryGetValue(key, out var cell)) cell.Text = text;
+    }
+
     public void Update(Reading r, FanService service)
     {
         double tempC = double.IsNaN(r.PreciseTemperatureC) ? r.TemperatureC : r.PreciseTemperatureC;
@@ -106,11 +183,25 @@ public partial class OverlayWindow : Window
         // Trend is the control temperature (max of CPU and GPU) while this readout is labelled
         // DIE, and FanService stops outside Auto fan mode whereas the poll loop never does.
         double displayC = _ctx.CpuTrend.HasEnoughData ? _ctx.CpuTrend.FilteredTempC : tempC;
-        TempText.Text = fromDie ? $"{displayC:0.0}°" : $"{Math.Round(displayC):0}°";
+        // A saturated zone reading is not a temperature -- same rule as the dashboard. An
+        // uninitialised ACPI zone reporting ~86 C on a cold machine is not a measurement, and
+        // appending a "+" to it does not make it one.
+        bool ceiling = !fromDie && SystemController.IsAtSensorCeiling(tempC);
+
+        Set("cpu", ceiling ? "--" : fromDie ? $"{displayC:0.0}°" : $"{Math.Round(displayC):0}°");
         SourceLabel.Text = fromDie ? "OMNIHUB · DIE" : "OMNIHUB · ACPI";
 
-        FanText.Text = $"{FanService.RawToRpm(r.FanLevel1)}";
-        PowerText.Text = _powerLabel;
+        Set("fan", $"{FanService.RawToRpm(r.FanLevel1)}");
+        Set("fan2", $"{FanService.RawToRpm(r.FanLevel2)}");
+        Set("pkg", _powerLabel);
+
+        // GPU values come from the slow timer's cached snapshot, never read on this thread:
+        // a cache miss spawns nvidia-smi, and 53 ms of process startup on the UI thread is a
+        // visible stutter in something drawn over a game.
+        Set("gpu", _gpuTempLabel);
+        Set("gpuw", _gpuPowerLabel);
+        Set("gpuclk", _gpuClockLabel);
+        Set("gpuload", _gpuLoadLabel);
 
         StateText.Text = r.Throttling == ThrottlingState.On ? "THROTTLING"
             : r.MaxFanActive ? "MAX FAN"
@@ -130,14 +221,37 @@ public partial class OverlayWindow : Window
         _powerTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(5) };
         _powerTimer.Tick += (_, _) =>
         {
+            // Both the SMU read and the GPU query run off the UI thread. The GPU one is the
+            // reason this matters: a cache miss spawns nvidia-smi, measured at 53 ms, which
+            // would be a visible stutter in a window drawn over a game.
             var tuning = _tuning;
-            if (tuning is null) return;
 
-            Task.Run(() => tuning.ReadPower()).ContinueWith(t =>
+            Task.Run(() =>
+            {
+                string power = "--";
+                if (tuning is not null)
+                {
+                    try { power = tuning.ReadPower() is { } p ? $"{p.StapmWatts:0.0}W" : "--"; }
+                    catch { power = "--"; }
+                }
+
+                var gpu = GpuTelemetry.Read();
+                return (power, gpu);
+            }).ContinueWith(t =>
             {
                 if (t.IsFaulted) return;
-                _powerLabel = t.Result is { } p ? $"{p.StapmWatts:0.0}W" : "--";
-            });
+                var (power, gpu) = t.Result;
+
+                _powerLabel = power;
+
+                // Null is an ordinary answer -- no NVIDIA GPU, or a failed query. It renders
+                // as "--" rather than holding the last value, so a dead reading cannot sit on
+                // screen looking live.
+                _gpuTempLabel  = gpu?.TempC is double gt ? $"{Math.Round(gt):0}°" : "--";
+                _gpuPowerLabel = gpu?.PowerWatts is double gw ? $"{gw:0.0}W" : "--";
+                _gpuClockLabel = gpu?.ClockMhz is int gc ? $"{gc}" : "--";
+                _gpuLoadLabel  = gpu?.UtilisationPercent is int gu ? $"{gu}%" : "--";
+            }, TaskScheduler.Default);
         };
 
         IsVisibleChanged += (_, e) =>

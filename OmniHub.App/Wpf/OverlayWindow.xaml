@@ -5,38 +5,14 @@
         ShowInTaskbar="False" Topmost="True" ResizeMode="NoResize"
         SizeToContent="WidthAndHeight" Focusable="False" IsHitTestVisible="False"
         Title="OmniHub Overlay">
-    <Border Background="{StaticResource PanelAltBrush}" BorderBrush="{StaticResource BorderBrush}"
+    <!-- Opacity is set from settings at runtime; the value here is only the designer default.
+         Rows are built in code from the user's chosen metric list rather than fixed in XAML,
+         because which ones appear is now a setting. -->
+    <Border x:Name="Card" Background="{StaticResource PanelAltBrush}" BorderBrush="{StaticResource BorderBrush}"
             BorderThickness="1" CornerRadius="8" Padding="12,9" Opacity="0.88">
         <StackPanel MinWidth="128">
             <TextBlock x:Name="SourceLabel" Style="{StaticResource DataLabelText}" Text="OMNIHUB" Margin="0,0,0,6"/>
-
-            <Grid Margin="0,0,0,3">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="52"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock Text="CPU" Style="{StaticResource MutedText}" FontSize="11" VerticalAlignment="Center"/>
-                <TextBlock x:Name="TempText" Grid.Column="1" Style="{StaticResource BigNumberText}" FontSize="17" Text="--"/>
-            </Grid>
-
-            <Grid Margin="0,0,0,3">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="52"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock Text="FAN" Style="{StaticResource MutedText}" FontSize="11" VerticalAlignment="Center"/>
-                <TextBlock x:Name="FanText" Grid.Column="1" Style="{StaticResource BigNumberText}" FontSize="17" Text="--"/>
-            </Grid>
-
-            <Grid x:Name="PowerRow" Margin="0,0,0,3">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="52"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock Text="PKG" Style="{StaticResource MutedText}" FontSize="11" VerticalAlignment="Center"/>
-                <TextBlock x:Name="PowerText" Grid.Column="1" Style="{StaticResource BigNumberText}" FontSize="17" Text="--"/>
-            </Grid>
-
+            <StackPanel x:Name="MetricRows"/>
             <TextBlock x:Name="StateText" Style="{StaticResource MutedText}" FontSize="10.5" Margin="0,3,0,0"/>
         </StackPanel>
     </Border>

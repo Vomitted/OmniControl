@@ -111,6 +111,7 @@ public partial class MainWindow : Window
     {
         base.OnSourceInitialized(e);
         ThemeManager.ApplyToWindowFrame(this);
+        RegisterOverlayHotkey(new System.Windows.Interop.WindowInteropHelper(this).Handle);
     }
 
     private void OnThemeChanged(ThemeDefinition theme) => ThemeManager.ApplyToWindowFrame(this);
@@ -528,6 +529,55 @@ public partial class MainWindow : Window
     /// <summary>Re-anchors the overlay after the corner setting changes.</summary>
     public void RefreshOverlayPosition() => _overlay?.MoveToCorner();
 
+    /// <summary>Rebuilds the overlay's rows and opacity after a settings change.</summary>
+    public void RefreshOverlayAppearance()
+    {
+        _overlay?.ApplyAppearance();
+        _overlay?.MoveToCorner();
+    }
+
+    // ---------------------------------------------------------------- global hotkey
+
+    [System.Runtime.InteropServices.DllImport("user32.dll", SetLastError = true)]
+    private static extern bool RegisterHotKey(IntPtr hWnd, int id, uint fsModifiers, uint vk);
+
+    [System.Runtime.InteropServices.DllImport("user32.dll", SetLastError = true)]
+    private static extern bool UnregisterHotKey(IntPtr hWnd, int id);
+
+    private const int OverlayHotkeyId = 0xA17;
+    private const uint ModAlt = 0x0001, ModControl = 0x0002, ModNoRepeat = 0x4000;
+    private const uint VkO = 0x4F;
+    private const int WmHotkey = 0x0312;
+    private IntPtr _hotkeyHwnd = IntPtr.Zero;
+
+    /// <summary>
+    /// Registers Ctrl+Alt+O to toggle the overlay from anywhere, including from inside a game.
+    ///
+    /// A global hotkey rather than a WPF InputBinding, because the whole point of the overlay
+    /// is that it is on screen while something else has focus -- a binding on this window
+    /// would only fire when this window is focused, which is precisely when you do not need it.
+    ///
+    /// MOD_NOREPEAT so holding the keys toggles once rather than flickering at the keyboard's
+    /// repeat rate. Failure is non-fatal and silent by design: another application may already
+    /// own this combination, and losing a shortcut is not a reason to fail startup.
+    /// </summary>
+    private void RegisterOverlayHotkey(IntPtr hwnd)
+    {
+        _hotkeyHwnd = hwnd;
+        RegisterHotKey(hwnd, OverlayHotkeyId, ModControl | ModAlt | ModNoRepeat, VkO);
+
+        System.Windows.Interop.HwndSource.FromHwnd(hwnd)?.AddHook((IntPtr h, int msg, IntPtr w, IntPtr l, ref bool handled) =>
+        {
+            if (msg != WmHotkey || w.ToInt32() != OverlayHotkeyId) return IntPtr.Zero;
+
+            _settings.OverlayEnabled = !_settings.OverlayEnabled;
+            _settings.Save();
+            SetOverlayVisible(_settings.OverlayEnabled);
+            handled = true;
+            return IntPtr.Zero;
+        });
+    }
+
     private void OnOverlayReading(Reading r)
     {
         var overlay = _overlay;
@@ -615,6 +665,7 @@ public partial class MainWindow : Window
         try { _ctx.Dispose(); } catch { }
         try { _thermalLog?.Dispose(); } catch { }
         try { ThemeManager.ThemeChanged -= OnThemeChanged; } catch { }
+        try { if (_hotkeyHwnd != IntPtr.Zero) UnregisterHotKey(_hotkeyHwnd, OverlayHotkeyId); } catch { }
         try { if (_trayIcon is not null) { _trayIcon.Visible = false; _trayIcon.Dispose(); } } catch { }
         if (_allowClose) System.Windows.Application.Current.Shutdown();
     }

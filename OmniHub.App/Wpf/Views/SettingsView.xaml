@@ -107,10 +107,26 @@
                                       VerticalAlignment="Center" Checked="OverlayToggle_Changed" Unchecked="OverlayToggle_Changed"/>
                         </Grid>
                         <StackPanel Orientation="Horizontal" Margin="0,12,0,0">
-                            <TextBlock Text="Corner" Style="{StaticResource MutedText}" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                            <TextBlock Text="Corner" Style="{StaticResource MutedText}" VerticalAlignment="Center" Margin="0,0,12,0" MinWidth="52"/>
                             <ComboBox x:Name="OverlayCornerPicker" MinWidth="160" VerticalAlignment="Center"
                                       SelectionChanged="OverlayCorner_Changed"/>
                         </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,12,0,0">
+                            <TextBlock Text="Opacity" Style="{StaticResource MutedText}" VerticalAlignment="Center" Margin="0,0,12,0" MinWidth="52"/>
+                            <Slider x:Name="OverlayOpacitySlider" Width="200" Minimum="0.2" Maximum="1.0"
+                                    VerticalAlignment="Center" Style="{StaticResource OmniSliderStyle}"
+                                    ValueChanged="OverlayOpacity_Changed"/>
+                            <TextBlock x:Name="OverlayOpacityLabel" Style="{StaticResource MutedText}" VerticalAlignment="Center" Margin="12,0,0,0" MinWidth="46"/>
+                        </StackPanel>
+
+                        <TextBlock Text="What it shows" Style="{StaticResource SettingTitle}" Margin="0,16,0,2"/>
+                        <TextBlock Style="{StaticResource SettingNote}" Margin="0,0,0,8"
+                                   Text="Rows appear in the order listed here. A metric this machine cannot read shows as -- rather than vanishing, so a blank row means the reading failed, not that it was switched off."/>
+                        <WrapPanel x:Name="OverlayMetricList"/>
+
+                        <TextBlock Style="{StaticResource SettingNote}" Margin="0,12,0,0"
+                                   Text="Shortcut: Ctrl+Alt+O toggles the overlay from anywhere, including while a game has focus."/>
                     </StackPanel>
                 </Grid>
             </Border>
