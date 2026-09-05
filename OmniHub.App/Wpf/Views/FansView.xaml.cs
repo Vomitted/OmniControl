@@ -298,9 +298,10 @@ public partial class FansView : UserControl
         TempValue.Text = tempC.ToString();
         TempFoot.Text = throttling ? "THROTTLING NOW" : "NOMINAL";
 
+        // No amber tier -- see ThermalBrushFor in DashboardView. A warning colour that is on
+        // through the machine's whole normal range stops being a warning.
         var brush = (Brush)FindResource(
             throttling || tempC >= 80 ? "DangerBrush"
-            : tempC >= 60 ? "WarnBrush"
             : "TextPrimaryBrush");
 
         TempValue.Foreground = brush;

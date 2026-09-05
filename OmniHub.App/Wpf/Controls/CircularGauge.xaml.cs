@@ -108,8 +108,9 @@ public partial class CircularGauge : UserControl
 
     // Headroom: 100 means cool and idle, 0 means out of thermal room.
     private Brush HeadroomBrush(double headroom) => (Brush)FindResource(
+        // Amber tier removed: at a 45% headroom threshold this gauge was yellow through the
+        // machine's entire normal operating range. See ThermalBrushFor in DashboardView.
         headroom <= 20 ? "DangerBrush"
-        : headroom <= 45 ? "WarnBrush"
         : "AccentBrush");
 
     private void BuildTicks()

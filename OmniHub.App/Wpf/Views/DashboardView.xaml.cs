@@ -80,7 +80,11 @@ public partial class DashboardView : UserControl
         // danger colour on its own account rather than by happening to exceed a threshold.
         if (SystemController.IsAtSensorCeiling(tempC)) return (Brush)FindResource("DangerBrush");
         if (tempC >= 80) return (Brush)FindResource("DangerBrush");
-        if (tempC >= 60) return (Brush)FindResource("WarnBrush");
+
+        // No amber tier. It used to start at 60 C, and this machine idles in the 50s to 70s,
+        // so the readout sat yellow essentially all the time -- a warning colour that is always
+        // on is not a warning, it is just the colour of the app. Normal until genuinely hot
+        // keeps the red meaning something.
         return (Brush)FindResource("TextPrimaryBrush");
     }
 
