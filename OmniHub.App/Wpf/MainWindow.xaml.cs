@@ -604,8 +604,15 @@ public partial class MainWindow : Window
         }
 
         try { _service.Stop(); } catch { }
-        try { _ctx.Dispose(); } catch { }
+
+        // The overlay closes BEFORE the context, not after.
+        //
+        // It reads package power on its own five-second timer, so disposing the hardware
+        // underneath it left a window where an in-flight tick could touch a disposed SMU.
+        // Closing it first makes the window invisible, which stops that timer, before there
+        // is anything disposed for it to reach for.
         try { _overlay?.Close(); } catch { }
+        try { _ctx.Dispose(); } catch { }
         try { _thermalLog?.Dispose(); } catch { }
         try { ThemeManager.ThemeChanged -= OnThemeChanged; } catch { }
         try { if (_trayIcon is not null) { _trayIcon.Visible = false; _trayIcon.Dispose(); } } catch { }

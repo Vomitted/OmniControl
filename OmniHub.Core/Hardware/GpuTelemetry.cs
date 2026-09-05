@@ -76,6 +76,18 @@ public static class GpuTelemetry
             using var proc = Process.Start(psi);
             if (proc is null) return null;
 
+            // stderr is drained CONCURRENTLY, not left to fill.
+            //
+            // Both pipes are redirected but only stdout was ever read, and ReadToEnd runs
+            // before WaitForExit -- so if the child wrote more than one pipe buffer to stderr
+            // it would block on that write, this thread would stay blocked reading stdout, and
+            // neither side would drain. The "bounded wait" below never gets the chance to
+            // apply, because the deadlock happens before it.
+            //
+            // That matters here more than anywhere: this runs on the poll thread, which holds
+            // the poll loop's re-entrancy interlock, so a hang stops temperature readings
+            // outright -- the same symptom as a dead fan loop, from a different cause.
+            _ = proc.StandardError.ReadToEndAsync();
             string output = proc.StandardOutput.ReadToEnd();
 
             // Bounded wait: a hung query must not stall the caller's poll loop forever.

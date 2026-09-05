@@ -416,6 +416,9 @@ public partial class DashboardView : UserControl
             if (proc is null)
                 return "winget could not be started. Install the driver from https://pawnio.eu";
 
+            // stderr drained concurrently -- see GpuTelemetry.Query for why. winget is by far
+            // the most verbose thing this app launches, so it is the likeliest to fill a pipe.
+            _ = proc.StandardError.ReadToEndAsync();
             string output = proc.StandardOutput.ReadToEnd();
             if (!proc.WaitForExit(180_000))
                 return "The install is taking unusually long; check on it in a terminal. Driver: https://pawnio.eu";
@@ -485,9 +488,26 @@ public partial class DashboardView : UserControl
             // "DIE SENSOR" label whenever the graphics card was the hotter part -- which while
             // gaming is most of the time.
             double displayC = _ctx.CpuTrend.HasEnoughData ? _ctx.CpuTrend.FilteredTempC : tempC;
+            // A saturated zone reading is NOT rendered as a temperature.
+            //
+            // This machine exposes two ACPI zones. TZ01_0 is sane (20 C at idle, critical
+            // 110 C). THRM_0 declares a critical trip point of 255 C, which is a sentinel
+            // rather than a real limit, and before the EC initialises it at boot it returns
+            // about 86 C on a cold machine. ReadTemperature takes the max across zones, so
+            // THRM_0 always wins.
+            //
+            // At startup the SMU is usually not open yet -- PawnIO's service is Manual-start --
+            // so Tctl is unavailable and that uninitialised zone is the only sensor there is.
+            // The app knew the value was untrustworthy (it flags it ceiling-limited) and
+            // printed it anyway, which is how a cold laptop reported 85 C on every launch.
+            //
+            // "85+" was an attempt to be honest about that and is not good enough: a number on
+            // screen reads as a measurement whatever is appended to it. There is no reading
+            // here, so there is no number. The fan curve is untouched by this and still treats
+            // a blind sensor as worst case, so no safety behaviour depends on this text.
             string shown = fromDie ? displayC.ToString("0.0") : ((int)Math.Round(displayC)).ToString();
-            ThermalText.Text = ceiling ? $"{shown}+" : shown;
-            StripTemp.Text = ceiling ? $"{shown}°C+" : $"{shown}°C";
+            ThermalText.Text = ceiling ? "--" : shown;
+            StripTemp.Text = ceiling ? "--" : $"{shown}°C";
 
             // Fan levels are an RPM/100 target, so raw*100 is the actual commanded RPM;
             // see FanService.RawToPercent for why the percentage is not raw/255.
@@ -535,7 +555,7 @@ public partial class DashboardView : UserControl
             double headroom = Math.Clamp((95.0 - displayC) / (95.0 - 30.0) * 100.0, 0, 100);
             if (r.Throttling == ThrottlingState.On) headroom = Math.Min(headroom, 25);
             Gauge.SetValue(headroom);
-            Gauge.Sub = $"{shown}\u00b0C";
+            Gauge.Sub = ceiling ? "--" : $"{shown}\u00b0C";
 
             // The discrete GPU, read and labelled separately from the die.
             //

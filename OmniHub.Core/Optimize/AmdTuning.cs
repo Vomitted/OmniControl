@@ -451,7 +451,22 @@ public sealed class AmdTuning
             {
                 RyzenSmu.SmuReturnOk => new TuningResult(true, $"Set {what}."),
                 0 => new TuningResult(false, $"The SMU did not respond when setting the {what} (timed out)."),
-                0xFF => new TuningResult(false, $"The SMU rejected the {what}: a precondition is not met."),
+                // 0xFF is a SPECIFIC refusal, not a generic failure, and it is worth saying so.
+                //
+                // Measured on this machine: unknown command IDs come back 0xFE, so 0xFF means
+                // the SMU recognised the command and declined it. For Curve Optimizer that was
+                // reproduced with an offset of 0 -- a no-op undervolt -- through both the
+                // all-core and per-core commands, which rules out the value, the 20-bit
+                // encoding and the clamp. The command itself is blocked, and its documented
+                // precondition is PBO / Core Performance Boost being enabled in firmware.
+                //
+                // Other tools report this as success because they treat the mailbox
+                // acknowledgement as proof. The point of this app is that it does not.
+                0xFF => new TuningResult(false,
+                    $"The firmware refused the {what}. The SMU recognises the command and "
+                    + "declines it, which for Curve Optimizer means PBO is disabled in the "
+                    + "BIOS -- HP does not expose that toggle, so undervolting is unavailable "
+                    + "on this machine whichever tool asks."),
                 0xFE => new TuningResult(false, $"The SMU was busy and rejected the {what}."),
                 _ => new TuningResult(false, $"The SMU returned 0x{response:X} for the {what}."),
             };

@@ -39,7 +39,15 @@ public static class StartupManager
 
             using var proc = Process.Start(psi);
             if (proc is null) return false;
-            proc.WaitForExit();
+
+            // Both pipes are redirected and neither was read, with an unbounded WaitForExit
+            // after it. Enough output from schtasks to fill a pipe buffer would block the
+            // child on that write and this call forever, with no timeout to escape by.
+            // Draining both concurrently and bounding the wait removes both halves.
+            _ = proc.StandardOutput.ReadToEndAsync();
+            _ = proc.StandardError.ReadToEndAsync();
+
+            if (!proc.WaitForExit(30_000)) { try { proc.Kill(true); } catch { } return false; }
             return proc.ExitCode == 0;
         }
         catch
