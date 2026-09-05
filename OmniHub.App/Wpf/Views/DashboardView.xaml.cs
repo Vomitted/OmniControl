@@ -539,11 +539,14 @@ public partial class DashboardView : UserControl
             // hues elsewhere are fixed identity, so this stays the only thing on screen
             // whose colour is telling you something changed.
             var thermalBrush = ThermalBrushFor(r.TemperatureC, r.Throttling);
-            ThermalText.Foreground = thermalBrush;
-            ThermalTitle.Foreground = thermalBrush;
-            ThermalUnit.Foreground = thermalBrush;
-            ThermalBarFill.Background = thermalBrush;
-            StripTemp.Foreground = thermalBrush;
+            // Eased across thresholds rather than switched. Crossing 60 or 80 C used to flip
+            // the whole card between one poll and the next, which made a one-degree wobble
+            // around a threshold look like an event.
+            Animate.BrushTo(ThermalText, TextBlock.ForegroundProperty, thermalBrush);
+            Animate.BrushTo(ThermalTitle, TextBlock.ForegroundProperty, thermalBrush);
+            Animate.BrushTo(ThermalUnit, TextBlock.ForegroundProperty, thermalBrush);
+            Animate.BrushTo(ThermalBarFill, Border.BackgroundProperty, thermalBrush);
+            Animate.BrushTo(StripTemp, TextBlock.ForegroundProperty, thermalBrush);
             ThermalFootRight.Foreground = r.Throttling == ThrottlingState.On
                 ? thermalBrush
                 : (Brush)FindResource("TextFaintBrush");
@@ -578,9 +581,9 @@ public partial class DashboardView : UserControl
                 var gpuBrush = ThermalBrushFor(gpuC, ThrottlingState.Default);
                 Animate.To(GpuTempText, gpuC, "0");
                 GpuTempUnit.Visibility = Visibility.Visible;
-                GpuTempText.Foreground = gpuBrush;
-                GpuTempUnit.Foreground = gpuBrush;
-                GpuBarFill.Background = gpuBrush;
+                Animate.BrushTo(GpuTempText, TextBlock.ForegroundProperty, gpuBrush);
+                Animate.BrushTo(GpuTempUnit, TextBlock.ForegroundProperty, gpuBrush);
+                Animate.BrushTo(GpuBarFill, Border.BackgroundProperty, gpuBrush);
                 SetBar(GpuBar, (gpuC - 30.0) / 70.0 * 100.0);
                 GpuFootRight.Text = gpu.UtilisationPercent is int u ? $"{u}% LOAD" : "ACTIVE";
             }

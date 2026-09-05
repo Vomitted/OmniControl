@@ -1,6 +1,7 @@
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Media.Animation;
 
 namespace OmniHub.App.Wpf;
@@ -78,6 +79,49 @@ public static class Animate
         }
 
         target.BeginAnimation(ValueProperty, new DoubleAnimation(from, to, Travel) { EasingFunction = Ease });
+    }
+
+    /// <summary>How long a colour takes to cross a threshold.</summary>
+    private static readonly Duration Tint = new(TimeSpan.FromMilliseconds(450));
+
+    /// <summary>
+    /// Eases a brush property to a new colour instead of switching it.
+    ///
+    /// Thermal colours were assigned outright, so crossing 60 C or 80 C flipped a whole card
+    /// from grey to amber to red between one poll and the next. On a value that is itself
+    /// smooth that hard cut is the most jarring thing on screen, and it invites reading a
+    /// one-degree wobble around a threshold as an event.
+    ///
+    /// Resource brushes are frozen and shared, so animating one in place would recolour every
+    /// element using it. This gives the element its own SolidColorBrush, seeded from whatever
+    /// it is currently showing, and animates that -- the shared resource is left alone.
+    ///
+    /// Slower than the number roll on purpose. A colour is a judgement about severity; it
+    /// should drift rather than snap to attention.
+    /// </summary>
+    public static void BrushTo(DependencyObject target, DependencyProperty property, Brush to)
+    {
+        if (to is not SolidColorBrush wanted)
+        {
+            target.SetValue(property, to);
+            return;
+        }
+
+        var existing = target.GetValue(property) as SolidColorBrush;
+        SolidColorBrush current;
+
+        if (existing is null || existing.IsFrozen)
+        {
+            // Seeded from the colour already on screen, so the first transition starts where
+            // the eye is rather than at the destination.
+            current = new SolidColorBrush(existing?.Color ?? wanted.Color);
+            target.SetValue(property, current);
+        }
+        else current = existing;
+
+        if (current.Color == wanted.Color) return;
+        current.BeginAnimation(SolidColorBrush.ColorProperty,
+            new ColorAnimation(wanted.Color, Tint) { EasingFunction = Ease });
     }
 
     /// <summary>

@@ -275,12 +275,46 @@
                                 </LinearGradientBrush>
                             </Border.Background>
                         </Border>
-                        <ContentPresenter Margin="24,0,12,0" VerticalAlignment="Center"/>
+                        <!-- Nudged right on hover. The label leaning toward the pointer is the
+                             cheapest way to make a list feel responsive rather than painted;
+                             3px is under the threshold of looking like a layout bug and over
+                             the threshold of being felt. -->
+                        <ContentPresenter x:Name="NavContent" Margin="24,0,12,0" VerticalAlignment="Center">
+                            <ContentPresenter.RenderTransform>
+                                <TranslateTransform X="0"/>
+                            </ContentPresenter.RenderTransform>
+                        </ContentPresenter>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="Bd" Property="Background" Value="{StaticResource PanelAltBrush}"/>
                             <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="NavContent"
+                                                         Storyboard.TargetProperty="RenderTransform.X"
+                                                         To="3" Duration="0:0:0.14">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="NavContent"
+                                                         Storyboard.TargetProperty="RenderTransform.X"
+                                                         To="0" Duration="0:0:0.18">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
                         </Trigger>
                         <Trigger Property="IsChecked" Value="True">
                             <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
