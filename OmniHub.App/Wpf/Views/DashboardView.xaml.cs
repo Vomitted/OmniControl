@@ -506,7 +506,13 @@ public partial class DashboardView : UserControl
             // here, so there is no number. The fan curve is untouched by this and still treats
             // a blind sensor as worst case, so no safety behaviour depends on this text.
             string shown = fromDie ? displayC.ToString("0.0") : ((int)Math.Round(displayC)).ToString();
-            ThermalText.Text = ceiling ? "--" : shown;
+
+            // Eased rather than assigned. The gauge beside this already sweeps its arc; the
+            // number jumping while the arc glided was the two disagreeing about how finished
+            // the app is.
+            if (ceiling) Animate.Clear(ThermalText);
+            else Animate.To(ThermalText, displayC, fromDie ? "0.0" : "0");
+
             StripTemp.Text = ceiling ? "--" : $"{shown}°C";
 
             // Fan levels are an RPM/100 target, so raw*100 is the actual commanded RPM;
@@ -570,7 +576,7 @@ public partial class DashboardView : UserControl
             if (gpu?.TempC is double gpuC)
             {
                 var gpuBrush = ThermalBrushFor(gpuC, ThrottlingState.Default);
-                GpuTempText.Text = ((int)Math.Round(gpuC)).ToString();
+                Animate.To(GpuTempText, gpuC, "0");
                 GpuTempUnit.Visibility = Visibility.Visible;
                 GpuTempText.Foreground = gpuBrush;
                 GpuTempUnit.Foreground = gpuBrush;
@@ -580,7 +586,7 @@ public partial class DashboardView : UserControl
             }
             else
             {
-                GpuTempText.Text = "--";
+                Animate.Clear(GpuTempText);
                 GpuTempUnit.Visibility = Visibility.Collapsed;
                 SetBar(GpuBar, 0);
                 GpuFootRight.Text = GpuTelemetry.IsAvailable ? "UNAVAILABLE" : "NO DISCRETE GPU";

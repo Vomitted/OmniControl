@@ -331,6 +331,46 @@
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="CornerRadius" Value="5"/>
         <Setter Property="Padding" Value="18"/>
+
+        <!-- The pointer lifts a card slightly and warms its edge.
+             1.5px of translation and a border colour, NOT a scale: these cards contain charts,
+             tables and live numbers, and scaling resamples all of that every frame. It looks
+             soft and costs a layout pass on every mouse move. Translating moves the composited
+             layer instead, and nothing re-renders.
+             160ms EaseOut: quick enough to feel attached to the pointer rather than trailing
+             it, slow enough not to flicker as the mouse crosses a card edge. -->
+        <Setter Property="RenderTransform">
+            <Setter.Value><TranslateTransform Y="0"/></Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Trigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.Y"
+                                             To="-1.5" Duration="0:0:0.16">
+                                <DoubleAnimation.EasingFunction>
+                                    <CubicEase EasingMode="EaseOut"/>
+                                </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.EnterActions>
+                <Trigger.ExitActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.Y"
+                                             To="0" Duration="0:0:0.16">
+                                <DoubleAnimation.EasingFunction>
+                                    <CubicEase EasingMode="EaseOut"/>
+                                </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.ExitActions>
+                <Setter Property="BorderBrush" Value="{StaticResource BorderStrongBrush}"/>
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
     <!-- Paints the sheen. Applied as a sibling inside a card's Grid where the extra depth

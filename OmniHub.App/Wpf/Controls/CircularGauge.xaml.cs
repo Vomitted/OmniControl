@@ -74,7 +74,10 @@ public partial class CircularGauge : UserControl
     public void SetValue(double value)
     {
         Value = Math.Clamp(value, 0, 100);
-        ValueText.Text = Value.ToString("0.0");
+
+        // Eased on the same curve as the arc. These are one instrument, and the number
+        // snapping while the ring around it glided was the most visible mismatch in the app.
+        Animate.To(ValueText, Value, "0.0");
 
         // Recolour from the value itself. This gauge shows thermal HEADROOM, so low is bad --
         // the inverse of the temperature cards. Worth stating explicitly, because otherwise
